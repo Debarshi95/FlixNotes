@@ -1,9 +1,9 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import { Button, Navbar, Typography, Input } from '../../../components';
-import './SignIn.css';
+import './Signin.css';
 
-const SignIn = () => {
+const Signin = () => {
   return (
     <div className="Signin__root">
       <Navbar />
@@ -67,4 +67,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Signin;
