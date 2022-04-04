@@ -1,0 +1,7 @@
+.Navbar__root {
+  padding: 1rem 3rem;
+  /* background-color: green; */
+}
+.Navlink--primary {
+  color: var(--color-primary);
+}
