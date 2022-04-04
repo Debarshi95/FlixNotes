@@ -1,0 +1,48 @@
+.Typography {
+  color: inherit;
+}
+
+.Typography.Typography--200 {
+  font-weight: 200;
+}
+
+.Typography.Typography--300 {
+  font-weight: 300;
+}
+.Typography.Typography--400 {
+  font-weight: 400;
+}
+.Typography.Typography--500 {
+  font-weight: 500;
+}
+.Typography.Typography--600 {
+  font-weight: 600;
+}
+.Typography.Typography--700 {
+  font-weight: 700;
+}
+
+.Typography.Typography--bold {
+  font-weight: bold;
+}
+
+.Typography.Typography--error {
+  font-weight: var(--color-danger);
+}
+
+.Typography.Typography--xs {
+  font-size: 0.9rem;
+}
+.Typography.Typography--sm {
+  font-size: 1.1rem;
+}
+.Typography.Typography--ssm {
+  font-size: 1.25rem;
+}
+
+.Typography.Typography--md {
+  font-size: 1.5rem;
+}
+.Typography.Typography--primary {
+  color: var(--color-primary) !important;
+}
