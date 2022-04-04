@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <div className="Navbar__root">
       <nav className="d-flex content-between max-w-85 mx-auto items-center">
-        <NavLink to="/" className="Navlink--primary text-12 text-bold">
+        <NavLink to="/" className="Navlink--primary text-14 text-bold">
           FlixNote
         </NavLink>
         <div className="d-flex w-10 content-between items-center">
