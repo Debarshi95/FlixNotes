@@ -14,6 +14,7 @@
 .Button--contained {
   background-color: var(--color-primary);
   color: var(--color-text-white);
+  padding: 0.4rem 1rem;
 }
 
 .Button--outlined {
