@@ -4,6 +4,7 @@
   --color-text-dark: #1a1919;
   --color-text-white: #f1f1f1;
   --color-primary-disabled: #fc8763;
+  --color-danger: #cc4e59;
 }
 body {
   padding: 0;

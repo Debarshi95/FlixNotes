@@ -12,9 +12,9 @@
 .Input__error {
   color: var(--color-danger);
   margin: 0 0 4px 4px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 .Input__label {
-  font-size: 1rem;
+  font-size: 0.87rem;
   font-family: inherit;
 }
