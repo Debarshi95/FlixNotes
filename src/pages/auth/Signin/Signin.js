@@ -4,8 +4,8 @@ import { AuthErrorCodes } from 'firebase/auth';
 import { Button, Navbar, Typography, Input } from '../../../components';
 import { validateLogin } from '../../../utils/formValidations';
 import { signin } from '../../../services/firebaseApi';
-import './Signin.css';
 import { authErrorMessage } from '../../../constants/authMessages';
+import './Signin.css';
 
 const Signin = () => {
   const navigate = useNavigate();
