@@ -1,4 +1,3 @@
-import React from 'react';
 import { AuthErrorCodes } from 'firebase/auth';
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router';
