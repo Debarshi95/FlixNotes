@@ -1,7 +1,6 @@
 .Button__root {
   border: 0;
   display: flex;
-  text-align: center;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
@@ -14,10 +13,11 @@
 .Button--contained {
   background-color: var(--color-primary);
   color: var(--color-text-white);
+  padding: 0.4rem 1rem;
 }
 
 .Button--outlined {
-  border: 1.8px solid var(--color-gray);
+  border: 1.75px solid var(--color-gray);
   box-sizing: content-box;
   background-color: transparent;
 }
