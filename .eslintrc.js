@@ -12,6 +12,14 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+        extensions: ['.js', '.ts', '.d.ts', '.tsx'],
+      },
+    },
+  },
   rules: {
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     'prettier/prettier': 'error',
@@ -33,5 +41,6 @@ module.exports = {
     'react/prop-types': 'off',
     'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/no-array-index-key': 'off',
   },
 };
