@@ -1,10 +1,10 @@
 import { AuthErrorCodes } from 'firebase/auth';
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router';
-import { Button, Navbar, Typography, Input } from '../../../components';
-import { checkUserNameTaken, createUser, signup } from '../../../services/firebaseApi';
-import { validateRegister } from '../../../utils/formValidations';
-import { authErrorMessage } from '../../../constants/authMessages';
+import { Button, Navbar, Typography, Input } from 'components';
+import { checkUserNameTaken, createUser, signup } from 'services/firebaseApi';
+import { validateRegister } from 'utils/formValidations';
+import { authErrorMessage } from 'constants/authMessages';
 import './Signup.css';
 
 const Signup = () => {
@@ -71,10 +71,7 @@ const Signup = () => {
             return (
               <>
                 {errors?.message && (
-                  <Typography
-                    variant="p"
-                    className="Typography--error Typography--xs text-center mb-1"
-                  >
+                  <Typography variant="p" className="Typography--error mb-1" align="center">
                     {errors.message || 'Oops! Some error occurred'}
                   </Typography>
                 )}

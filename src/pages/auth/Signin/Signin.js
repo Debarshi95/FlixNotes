@@ -1,10 +1,10 @@
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router';
 import { AuthErrorCodes } from 'firebase/auth';
-import { Button, Navbar, Typography, Input } from '../../../components';
-import { validateLogin } from '../../../utils/formValidations';
-import { signin } from '../../../services/firebaseApi';
-import { authErrorMessage } from '../../../constants/authMessages';
+import { Button, Navbar, Typography, Input } from 'components';
+import { validateLogin } from 'utils/formValidations';
+import { signin } from 'services/firebaseApi';
+import { authErrorMessage } from 'constants/authMessages';
 import './Signin.css';
 
 const Signin = () => {
