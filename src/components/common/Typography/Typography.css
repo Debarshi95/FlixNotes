@@ -49,3 +49,6 @@
 .Typography.Typography--primary {
   color: var(--color-primary) !important;
 }
+.Typography--end {
+  text-align: end;
+}

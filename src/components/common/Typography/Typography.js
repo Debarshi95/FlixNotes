@@ -10,10 +10,23 @@ const variants = {
   h5: 'h5',
   h6: 'h6',
   p: 'p',
+  div: 'div',
 };
-const Typography = ({ variant, className, ...props }) => {
+const Typography = ({ variant, className, size, align, ...props }) => {
   const Component = variants[variant] || 'p';
-  return <Component className={cn('Typography', className)} {...props} />;
+  return (
+    <Component
+      className={cn('Typography', className, {
+        [`Typography--${size}`]: true,
+        [`Typography--${align}`]: true,
+      })}
+      {...props}
+    />
+  );
 };
 
+Typography.defaultProps = {
+  size: 'sm',
+  align: 'center',
+};
 export default Typography;
