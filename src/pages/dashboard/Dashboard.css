@@ -1,0 +1,9 @@
+.Dashboard__root {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 85%;
+  margin: 0 auto;
+}
+.Dashboard__itemContainer {
+  flex: 1;
+}
