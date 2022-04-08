@@ -33,4 +33,16 @@ export const createUser = ({ username, uid, email }) => {
     createdAt: serverTimestamp(),
   });
 };
+
+export const createNote = ({ userId, labels, isPinned, cardColor, status, content = '' }) => {
+  return addDoc(collection(firestore, 'notes'), {
+    content,
+    userId,
+    labels,
+    cardColor,
+    status,
+    isPinned,
+    createdAt: serverTimestamp(),
+  });
+};
 export const signout = async () => signOut(auth);
