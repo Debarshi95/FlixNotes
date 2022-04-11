@@ -1,3 +1,4 @@
+import PrivateRoute from 'components/common/PrivateRoute/PrivateRoute';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from './auth/Signin/Signin';
@@ -13,7 +14,14 @@ const App = () => {
           <Route path="/" index element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
       <Toaster />
