@@ -35,15 +35,6 @@
   cursor: pointer;
 }
 
-.NotePad__popover {
-  position: absolute;
-  top: 0;
-  background: var(--color-white);
-  padding: 8px;
-  border-radius: 4px;
-  height: fit-content;
-  top: -90px;
-}
 .popover__container {
   position: relative;
 }

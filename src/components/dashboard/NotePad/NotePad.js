@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useRef, useState, useReducer } from 'react';
 import toast from 'react-hot-toast';
-import cn from 'classnames';
 import Circle from '@uiw/react-color-circle';
 import ReactQuill from 'react-quill';
 import { Popover } from 'react-tiny-popover';
@@ -8,21 +7,12 @@ import { BsPaletteFill, BsFillPinFill, BsPin, BsArchiveFill } from 'react-icons/
 import { MdLabel, MdAddCircle } from 'react-icons/md';
 import { useAuth } from 'providers/AuthProvider/AuthProvider';
 import { createNote } from 'services/firebaseApi';
-import Typography from 'components/common/Typography/Typography';
+import { circlePopperColors, circlePopperStyles } from 'styles/defaultStyles';
+import { Typography, Button, LabelContainer } from 'components';
 import noteReducer from 'reducers/noteReducer';
 import { noteActions, noteStatus } from 'constants/authMessages';
-import Button from 'components/common/Button/Button';
 import 'react-quill/dist/quill.snow.css';
 import './NotePad.css';
-
-const colors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#FFF'];
-
-const circlePopperStyles = {
-  position: 'absolute',
-  width: '6rem',
-  top: '-140px',
-  background: '#f5f5f5',
-};
 
 const initialState = {
   content: '',
@@ -88,7 +78,7 @@ const NotePad = () => {
       <div className="NotePad__root" style={{ backgroundColor: noteState?.cardColor }}>
         <Typography
           variant="h6"
-          className="Typography--primary mr-1"
+          className="mr-1"
           onClick={() => {
             dispatch({ type: noteActions.SET_PINNED, payload: !noteState.isPinned });
           }}
@@ -105,16 +95,12 @@ const NotePad = () => {
             value={noteState.content}
           />
         </div>
-        <Typography
-          variant="div"
-          className="NotePad__iconWrapper d-flex items-center content-between"
-        >
-          <p className="text-black">Created On 4/04/2022</p>
+        <Typography variant="div" className="NotePad__iconWrapper d-flex items-center content-end">
           <div className="d-flex items-center popover__container">
             {isColorPopoverOpen && (
               <Circle
-                colors={colors}
-                onChange={(color) => dispatch({ type: 'SET_STYLE', payload: color.hex })}
+                colors={circlePopperColors}
+                onChange={(color) => dispatch({ type: noteActions.SET_STYLE, payload: color.hex })}
                 className="NotePad__popover"
                 style={circlePopperStyles}
               />
@@ -147,24 +133,7 @@ const NotePad = () => {
         </Typography>
       </div>
       {noteState.labels.length > 0 && (
-        <div className={cn('NotePad__labels')}>
-          {noteState.labels.map((label, idx) => (
-            <div className="d-flex mx-1 items-center" key={idx}>
-              <Typography variant="h6" size="xs">
-                {label}
-              </Typography>
-              <div
-                className="close--icon d-block text-black text-bold"
-                role="button"
-                onClick={() => handleLabelDelete(label)}
-                tabIndex={0}
-                aria-hidden
-              >
-                X
-              </div>
-            </div>
-          ))}
-        </div>
+        <LabelContainer labels={noteState.labels} handleLabelDelete={handleLabelDelete} />
       )}
     </>
   );

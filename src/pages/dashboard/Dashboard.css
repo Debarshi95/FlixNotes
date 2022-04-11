@@ -7,3 +7,8 @@
 .Dashboard__itemContainer {
   flex: 1;
 }
+.Dashboard__cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
