@@ -6,3 +6,4 @@ export { default as Input } from './auth/Input/Input';
 export { default as Sidebar } from './dashboard/Sidebar/Sidebar';
 export { default as NotePad } from './dashboard/NotePad/NotePad';
 export { default as LabelContainer } from './dashboard/LabelContainer/LabelContainer';
+export { default as ErrorBoundary } from './common/ErrorBoundary/ErrorBoundary';

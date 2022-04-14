@@ -1,10 +1,11 @@
 const circlePopperStyles = {
   position: 'absolute',
-  width: '6rem',
-  top: '-140px',
-  background: '#f5f5f5',
+  width: '5rem',
+  bottom: '-130px',
+  background: '#0d0d0d',
+  borderRadius: '4px',
 };
 
-const circlePopperColors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#FFF'];
+const circlePopperColors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#F5f5f5', '#cc4e59'];
 
 export { circlePopperStyles, circlePopperColors };

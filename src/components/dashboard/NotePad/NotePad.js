@@ -47,9 +47,9 @@ const NotePad = () => {
   const PopOverContent = useMemo(
     () => (
       <div className="popover__label d-flex">
-        <input type="text" name="label" ref={labelRef} placeholder="Enter a note label" />
+        <input type="text" name="label" ref={labelRef} placeholder="Enter a label" />
         <Button type="button" onClick={handleLabelAdd}>
-          Add
+          ADD
         </Button>
       </div>
     ),
@@ -74,68 +74,72 @@ const NotePad = () => {
   };
 
   return (
-    <>
-      <div className="NotePad__root" style={{ backgroundColor: noteState?.cardColor }}>
-        <Typography
-          variant="h6"
-          className="mr-1"
+    <div className="NotePad__root" style={{ backgroundColor: noteState?.cardColor }}>
+      <Typography
+        variant="div"
+        className="NotePad__iconWrapper d-flex items-center content-between"
+      >
+        <div
+          className="popover__container"
           onClick={() => {
-            dispatch({ type: noteActions.SET_PINNED, payload: !noteState.isPinned });
+            dispatch({ type: noteActions.SET_PINNED, payload: !noteStatus.isPinned });
           }}
-          align="end"
+          aria-hidden
         >
-          {noteState.isPinned ? <BsFillPinFill /> : <BsPin />}
-        </Typography>
-        <div className="NotePad__inputContainer">
-          <ReactQuill
-            placeholder="Empty Note"
-            onChange={(value) => {
-              dispatch({ type: noteActions.SET_CONTENT, payload: value });
-            }}
-            value={noteState.content}
-          />
+          {noteState.isPinned ? (
+            <BsFillPinFill className="d-block text-14 mr-1" />
+          ) : (
+            <BsPin className="d-block text-14 mr-1" />
+          )}
         </div>
-        <Typography variant="div" className="NotePad__iconWrapper d-flex items-center content-end">
-          <div className="d-flex items-center popover__container">
-            {isColorPopoverOpen && (
-              <Circle
-                colors={circlePopperColors}
-                onChange={(color) => dispatch({ type: noteActions.SET_STYLE, payload: color.hex })}
-                className="NotePad__popover"
-                style={circlePopperStyles}
-              />
-            )}
-            <Popover
-              isOpen={isPopoverOpen}
-              position={['top', 'right']}
-              containerStyle={{ position: 'absolute', top: '48%', left: '55%' }}
-              content={PopOverContent}
-            >
-              <MdLabel
-                className="d-block text-12 mr-1"
-                onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-              />
-            </Popover>
-
-            <BsPaletteFill
-              className="d-block text-12 mr-1"
-              onClick={() => setIsColorPaperOpen(!isColorPopoverOpen)}
+        <div className="d-flex items-center popover__container">
+          {isColorPopoverOpen && (
+            <Circle
+              colors={circlePopperColors}
+              onChange={(color) => dispatch({ type: noteActions.SET_STYLE, payload: color.hex })}
+              style={circlePopperStyles}
             />
-
-            <BsArchiveFill
-              className="d-block text-12 mr-1"
-              onClick={() => {
-                dispatch({ type: noteActions.SET_STATUS, payload: noteStatus.ARCHIVE });
-              }}
+          )}
+          <Popover
+            isOpen={isPopoverOpen}
+            position={['top']}
+            containerClassName="popover__wrapper"
+            align="end"
+            content={PopOverContent}
+          >
+            <MdLabel
+              className="d-block text-18 mr-1"
+              onClick={() => setIsPopoverOpen(!isPopoverOpen)}
             />
-            <MdAddCircle className="d-block text-16 mr-1" onClick={handleAddNote} />
-          </div>
-        </Typography>
+          </Popover>
+
+          <BsPaletteFill
+            className="d-block text-14 mr-1"
+            onClick={() => setIsColorPaperOpen(!isColorPopoverOpen)}
+          />
+
+          <BsArchiveFill
+            className="d-block text-14 mr-1"
+            onClick={() => {
+              dispatch({ type: noteActions.SET_STATUS, payload: noteStatus.ARCHIVE });
+            }}
+          />
+          <MdAddCircle className="d-block text-16 mr-1" onClick={handleAddNote} />
+        </div>
+      </Typography>
+      <div className="NotePad__inputContainer">
+        <ReactQuill
+          onChange={(value) => {
+            dispatch({ type: noteActions.SET_CONTENT, payload: value });
+          }}
+          value={noteState.content}
+          placeholder="Enter some text..."
+        />
       </div>
       {noteState.labels.length > 0 && (
         <LabelContainer labels={noteState.labels} handleLabelDelete={handleLabelDelete} />
       )}
-    </>
+    </div>
   );
 };
 

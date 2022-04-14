@@ -60,7 +60,7 @@ const Signup = () => {
     <div className="Signup__root">
       <Navbar />
       <div className="Signup__formContainer d-flex flex-col">
-        <Typography variant="h5" className="Typography--primary mt-2 mb-1 text-center">
+        <Typography variant="h5" className="Typography--primary mt-1 mb-2" align="center" size="md">
           Signup to get started
         </Typography>
         <Formik
@@ -77,7 +77,12 @@ const Signup = () => {
             return (
               <>
                 {errors?.message && (
-                  <Typography variant="p" className="Typography--error mb-1" align="center">
+                  <Typography
+                    variant="p"
+                    className="Typography--error mb-2"
+                    align="center"
+                    size="xs"
+                  >
                     {errors.message || 'Oops! Some error occurred'}
                   </Typography>
                 )}

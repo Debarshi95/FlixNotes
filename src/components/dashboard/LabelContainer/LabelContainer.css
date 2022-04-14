@@ -1,21 +1,33 @@
 .LabelContainer__root {
-  max-width: 42rem;
-  padding: 0.5rem;
-  border-radius: 4px;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
   display: flex;
   flex-wrap: wrap;
-  border: 2px solid var(--color-box-shadow);
-  font-size: 0.9rem;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background-color: var(--color-main-bg);
 }
 .LabelContainer__root .close--icon {
   border-radius: 50%;
-  border: 1.8px solid var(--color-primary);
-  width: 1.25rem;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   margin-left: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: var(--color-primary);
+  color: var(--color-text-white);
+  background-color: var(--color-text-dark);
+}
+.LabelItem {
+  background-color: var(--color-text-white);
+  border-radius: 3px;
+  margin: 6px 3px;
+  padding: 4px 6px;
+}
+.LabelItem:nth-child(1) {
+  margin-left: 6px;
 }

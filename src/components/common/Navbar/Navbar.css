@@ -1,7 +1,22 @@
 .Navbar__root {
   padding: 1.25rem 3rem;
   border-bottom: 1px solid var(--color-main-bg);
+  max-width: 90%;
+  margin: 0 auto;
 }
 .Navlink--primary {
   color: var(--color-primary);
+}
+
+.Navbar__menu {
+  color: var(--color-primary);
+  font-size: 1.35rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  .Navbar__root {
+    max-width: 100%;
+    padding: 1.25rem;
+  }
 }
