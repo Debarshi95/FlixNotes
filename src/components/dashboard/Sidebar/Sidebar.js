@@ -1,4 +1,4 @@
-import { FaArchive, FaTrash, FaHome, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
+import { FaArchive, FaTrash, FaHome, FaSignOutAlt } from 'react-icons/fa';
 import { MdLabel } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import Button from 'components/common/Button/Button';
@@ -27,11 +27,11 @@ const Sidebar = () => {
       name: 'Trash',
       icon: <FaTrash className="Sidebar__icon" />,
     },
-    {
-      path: '/profile',
-      name: 'Profile',
-      icon: <FaUserCircle className="Sidebar__icon" />,
-    },
+    // {
+    //   path: '/profile',
+    //   name: 'Profile',
+    //   icon: <FaUserCircle className="Sidebar__icon" />,
+    // },
   ];
 
   return (
