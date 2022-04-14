@@ -48,7 +48,7 @@ const Util = () => {
         <div className="d-flex">
           <Sidebar />
           <div className="Dashboard__itemContainer">
-            <Typography size="md" align="center" className="text-bold mr-8 my-1">
+            <Typography size="md" align="center" className="Typography--primary text-bold my-1">
               {pathname.split('/')[1].toUpperCase()}
             </Typography>
             <article className="Dashboard__cardContainer">

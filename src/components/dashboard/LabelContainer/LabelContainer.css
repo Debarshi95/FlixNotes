@@ -8,6 +8,7 @@
   bottom: 0;
   left: 0;
   z-index: 1;
+  background-color: var(--color-main-bg);
 }
 .LabelContainer__root .close--icon {
   border-radius: 50%;

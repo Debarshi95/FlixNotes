@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useCallback, useMemo, useRef, useState, useReducer } from 'react';
 import toast from 'react-hot-toast';
 import Circle from '@uiw/react-color-circle';
