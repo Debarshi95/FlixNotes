@@ -12,16 +12,26 @@ const Navbar = () => {
         <NavLink to="/" className="Navlink--primary text-14 text-bold">
           FlixNote
         </NavLink>
-        <div className="d-flex w-10 content-between items-center">
-          {!user && (
+        <div className="d-flex content-between items-center">
+          {!user ? (
             <>
-              <NavLink to="/signin" className="text-bold">
+              <NavLink to="/signin" className="Typography--uppercase navlink text-bold">
                 Signin
               </NavLink>
-              <NavLink to="/signup" className="text-bold">
+              <NavLink
+                to="/signup"
+                className="Typography--uppercase navlink navlink--primary-contained text-bold"
+              >
                 Signup
               </NavLink>
             </>
+          ) : (
+            <NavLink
+              to="/dashboard"
+              className="Typography--uppercase navlink navlink--primary-contained text-bold"
+            >
+              Dashboard
+            </NavLink>
           )}
         </div>
       </nav>

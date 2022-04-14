@@ -18,7 +18,24 @@ body {
   box-sizing: border-box;
 }
 
-a {
+.navlink {
   color: inherit;
   font-family: inherit;
+  padding: 0.4rem 1.2rem;
+}
+.navlink:hover {
+  background-color: var(--color-primary-disabled);
+  color: var(--color-text-white);
+}
+.navlink--primary-contained {
+  color: var(--color-text-white);
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  margin-left: 2.5rem;
+}
+
+@media screen and (max-width: 600px) {
+  .navlink--primary-contained {
+    margin: 0;
+  }
 }

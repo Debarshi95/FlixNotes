@@ -25,6 +25,9 @@
 .Typography--bold {
   font-weight: bold;
 }
+.Typography--uppercase {
+  text-transform: uppercase;
+}
 
 .Typography--error {
   color: var(--color-red);

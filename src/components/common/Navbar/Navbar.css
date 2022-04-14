@@ -5,3 +5,9 @@
 .Navlink--primary {
   color: var(--color-primary);
 }
+
+@media screen and (max-width: 600px) {
+  .Navbar__root {
+    padding: 1.2rem 0;
+  }
+}
