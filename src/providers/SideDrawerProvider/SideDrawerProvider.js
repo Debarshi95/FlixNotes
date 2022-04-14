@@ -11,6 +11,7 @@ const SideDrawerProvider = ({ children }) => {
     () => ({ showDrawer, toggleDrawer: () => setShowDrawer(!showDrawer) }),
     [showDrawer]
   );
+
   return <SideDrawerContext.Provider value={value}>{children}</SideDrawerContext.Provider>;
 };
 

@@ -1,46 +1,69 @@
 import { FaArchive, FaTrash, FaHome, FaSignOutAlt } from 'react-icons/fa';
+import { useCallback } from 'react';
+import cn from 'classnames';
+import { useMediaQuery } from 'react-responsive';
 import { MdLabel } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import Button from 'components/common/Button/Button';
 import Typography from 'components/common/Typography/Typography';
-import './Sidebar.css';
 import { signout } from 'services/firebaseApi';
+import { useSideDrawer } from 'providers/SideDrawerProvider/SideDrawerProvider';
+import './Sidebar.css';
+
+const linksProps = [
+  {
+    path: '/',
+    name: 'Home',
+    icon: <FaHome className="Sidebar__icon" />,
+  },
+  {
+    path: '/labels',
+    name: 'Labels',
+    icon: <MdLabel className="Sidebar__icon" />,
+  },
+  {
+    path: '/archive',
+    name: 'Archive',
+    icon: <FaArchive className="Sidebar__icon" />,
+  },
+  {
+    path: '/trash',
+    name: 'Trash',
+    icon: <FaTrash className="Sidebar__icon" />,
+  },
+  // {
+  //   path: '/profile',
+  //   name: 'Profile',
+  //   icon: <FaUserCircle className="Sidebar__icon" />,
+  // },
+];
 
 const Sidebar = () => {
-  const linksProps = [
-    {
-      path: '/',
-      name: 'Home',
-      icon: <FaHome className="Sidebar__icon" />,
-    },
-    {
-      path: '/labels',
-      name: 'Labels',
-      icon: <MdLabel className="Sidebar__icon" />,
-    },
-    {
-      path: '/archive',
-      name: 'Archive',
-      icon: <FaArchive className="Sidebar__icon" />,
-    },
-    {
-      path: '/trash',
-      name: 'Trash',
-      icon: <FaTrash className="Sidebar__icon" />,
-    },
-    // {
-    //   path: '/profile',
-    //   name: 'Profile',
-    //   icon: <FaUserCircle className="Sidebar__icon" />,
-    // },
-  ];
+  const { showDrawer } = useSideDrawer();
+  const xs = useMediaQuery({ maxWidth: '600px' });
 
-  return (
-    <div className="Sidebar__root">
+  const renderMobileDrawer = useCallback(
+    () => (
+      <div className="Sidebar__drawer">
+        {linksProps.map((linkObj) => (
+          <NavLink to={linkObj.path} key={linkObj.path}>
+            <div className="d-flex items-center Sidebar__drawer--link">
+              {linkObj.icon}
+              <p className="ml-2">{linkObj.name}</p>
+            </div>
+          </NavLink>
+        ))}
+      </div>
+    ),
+    []
+  );
+
+  return !xs ? (
+    <div className={cn('Sidebar__root')}>
       <nav className="d-flex flex-col content-between h-full">
         <div>
           {linksProps.map((linkObj) => (
-            <NavLink to={linkObj.path}>
+            <NavLink to={linkObj.path} key={linkObj.path}>
               <div className="Sidebar__link">
                 {linkObj.icon}
                 <p className="ml-2">{linkObj.name}</p>
@@ -56,6 +79,8 @@ const Sidebar = () => {
         </Button>
       </nav>
     </div>
+  ) : (
+    showDrawer && renderMobileDrawer()
   );
 };
 

@@ -6,6 +6,12 @@
   color: var(--color-primary);
 }
 
+.Navbar__menu {
+  color: var(--color-primary);
+  font-size: 1.35rem;
+  font-weight: bold;
+  cursor: pointer;
+}
 @media screen and (max-width: 600px) {
   .Navbar__root {
     padding: 1.2rem 0;
