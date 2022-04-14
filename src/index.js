@@ -1,3 +1,4 @@
+import ErrorBoundary from 'components/common/ErrorBoundary/ErrorBoundary';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './pages/App';
@@ -7,9 +8,11 @@ import './styles/index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root')
 );

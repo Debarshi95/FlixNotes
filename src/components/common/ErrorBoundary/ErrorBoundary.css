@@ -1,0 +1,14 @@
+.errorBoundary__root {
+  max-width: 94%;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.errorBoundary__root > h2 {
+  font-weight: 400;
+  margin: 1rem 0;
+  text-align: center;
+}
