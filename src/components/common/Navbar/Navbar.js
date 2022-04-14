@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <div className="Navbar__root">
       <nav className="d-flex content-between max-w-85 mx-auto items-center">
-        {xs ? (
+        {xs && user ? (
           renderMenuIcon()
         ) : (
           <NavLink to="/" className="Navlink--primary text-14 text-bold">
