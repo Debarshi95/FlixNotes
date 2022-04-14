@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Button from 'components/common/Button/Button';
 import Typography from 'components/common/Typography/Typography';
 import './Sidebar.css';
+import { signout } from 'services/firebaseApi';
 
 const Sidebar = () => {
   const linksProps = [
@@ -48,7 +49,7 @@ const Sidebar = () => {
           ))}
         </div>
         <Button component="div" className="mb-4">
-          <Typography variant="h6" className="d-flex content-evenly items-center">
+          <Typography variant="h6" className="d-flex content-evenly items-center" onClick={signout}>
             <span className="d-block">Debarshi</span>
             <FaSignOutAlt className="mx-1" />
           </Typography>
