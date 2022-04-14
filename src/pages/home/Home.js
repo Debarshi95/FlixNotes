@@ -1,12 +1,14 @@
-import { Button, Typography } from '../../components';
+import { useAuth } from 'providers/AuthProvider/AuthProvider';
+import { Button, Typography } from 'components';
 import './Home.css';
 
 const Home = () => {
+  const { user } = useAuth();
   return (
     <div className="Home__root">
       <section className="d-flex content-evenly py-1">
         <div className="d-flex flex-col content-evenly flex-1">
-          <Typography variant="h1" className="text-34">
+          <Typography variant="h1" size="xxlg">
             FlixNote
           </Typography>
           <div className="d-flex flex-col">
@@ -32,11 +34,11 @@ const Home = () => {
             <Button
               component="link"
               hasLink
-              to="/signin"
+              to={user ? '/dashboard' : '/signin'}
               className="Home__continueBtn"
               variant="outlined"
             >
-              Sign In
+              {user ? 'Dashboard' : 'SignIn '}
             </Button>
           </div>
         </div>

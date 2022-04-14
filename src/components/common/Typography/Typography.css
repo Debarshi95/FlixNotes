@@ -46,6 +46,12 @@
 .Typography.Typography--md {
   font-size: 1.5rem;
 }
+.Typography.Typography--xxlg {
+  font-size: 2.5rem;
+}
 .Typography.Typography--primary {
-  color: var(--color-primary) !important;
+  color: var(--color-primary);
+}
+.Typography--end {
+  text-align: end;
 }

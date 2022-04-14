@@ -1,9 +1,10 @@
+import { useAuth } from 'providers/AuthProvider/AuthProvider';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-  const user = {};
+  const { user } = useAuth();
 
   return (
     <div className="Navbar__root">
@@ -12,16 +13,7 @@ const Navbar = () => {
           FlixNote
         </NavLink>
         <div className="d-flex w-10 content-between items-center">
-          {user?.id ? (
-            <>
-              <NavLink to="/cart" className="Navbar__IconButton">
-                {/* <BsFillCartFill /> */}
-              </NavLink>
-              <button type="button" className="Navbar__IconButton">
-                {/* <FaSignOutAlt /> */}
-              </button>
-            </>
-          ) : (
+          {!user && (
             <>
               <NavLink to="/signin" className="text-bold">
                 Signin

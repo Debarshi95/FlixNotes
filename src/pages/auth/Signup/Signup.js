@@ -1,13 +1,15 @@
 import { AuthErrorCodes } from 'firebase/auth';
 import { Form, Formik } from 'formik';
-import { useNavigate } from 'react-router';
-import { Button, Navbar, Typography, Input } from '../../../components';
-import { checkUserNameTaken, createUser, signup } from '../../../services/firebaseApi';
-import { validateRegister } from '../../../utils/formValidations';
-import { authErrorMessage } from '../../../constants/authMessages';
+import { Navigate, useNavigate } from 'react-router';
+import { Button, Navbar, Typography, Input } from 'components';
+import { useAuth } from 'providers/AuthProvider/AuthProvider';
+import { checkUserNameTaken, createUser, signup } from 'services/firebaseApi';
+import { validateRegister } from 'utils/formValidations';
+import { authErrorMessage } from 'constants/authMessages';
 import './Signup.css';
 
 const Signup = () => {
+  const { user: authUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { resetForm, setFieldError }) => {
@@ -50,6 +52,10 @@ const Signup = () => {
     return null;
   };
 
+  if (authUser) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   return (
     <div className="Signup__root">
       <Navbar />
@@ -71,10 +77,7 @@ const Signup = () => {
             return (
               <>
                 {errors?.message && (
-                  <Typography
-                    variant="p"
-                    className="Typography--error Typography--xs text-center mb-1"
-                  >
+                  <Typography variant="p" className="Typography--error mb-1" align="center">
                     {errors.message || 'Oops! Some error occurred'}
                   </Typography>
                 )}

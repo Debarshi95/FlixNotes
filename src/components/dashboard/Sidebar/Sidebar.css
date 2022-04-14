@@ -1,0 +1,23 @@
+.Sidebar__root {
+  width: 18rem;
+  height: calc(100vh - 5rem);
+  position: sticky;
+  top: 0;
+}
+.Sidebar__link {
+  padding: 1.15rem 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  font-weight: bold;
+}
+
+.Sidebar__link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-box-shadow);
+}
+.Sidebar__icon {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+}

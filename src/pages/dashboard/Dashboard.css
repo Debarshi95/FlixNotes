@@ -1,0 +1,14 @@
+.Dashboard__root {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 85%;
+  margin: 0 auto;
+}
+.Dashboard__itemContainer {
+  flex: 1;
+}
+.Dashboard__cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
