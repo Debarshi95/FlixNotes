@@ -8,7 +8,7 @@ const Dashboard = () => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    const docRef = query(collection(firestore, 'notes'), where('status', '!=', 'ARCHIVE'));
+    const docRef = query(collection(firestore, 'notes'), where('status', '==', 'ACTIVE'));
     const unsub = onSnapshot(docRef, (snapshot) => {
       const docs = [];
       snapshot.docs.forEach((doc) => {

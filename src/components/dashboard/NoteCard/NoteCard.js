@@ -2,7 +2,7 @@
 import { Typography, LabelContainer } from 'components';
 import toast from 'react-hot-toast';
 import sanitizeHtml from 'sanitize-html';
-import { deleteNote, updateNote } from 'services/firebaseApi';
+import { updateNote } from 'services/firebaseApi';
 import { FaTrash } from 'react-icons/fa';
 import { BsArchiveFill, BsFillPinFill, BsPin } from 'react-icons/bs';
 
@@ -20,15 +20,6 @@ const NoteCard = ({ note }) => {
       toast.success('Note updated successfully!');
     } catch (error) {
       toast.error("Error! Couldn't update note");
-    }
-  };
-
-  const handleNoteDelete = async () => {
-    try {
-      await deleteNote(note.id);
-      toast.success('Note deleted successfully!');
-    } catch (error) {
-      toast.error("Error! Couldn't delete note");
     }
   };
 
@@ -60,7 +51,7 @@ const NoteCard = ({ note }) => {
           />
         </div>
 
-        <FaTrash cursor="pointer" onClick={handleNoteDelete} />
+        <FaTrash cursor="pointer" onClick={() => handleNoteUpdate('UPDATE_STATUS', 'TRASH')} />
       </Typography>
       <div
         dangerouslySetInnerHTML={{ __html: sanitizeHtml(note.content) }}
