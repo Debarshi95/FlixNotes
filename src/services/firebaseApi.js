@@ -68,5 +68,13 @@ export const getNoteByQuery = ({ where: queryWhere, operator, value: queryValue 
   }
   return getDocs(queryRef);
 };
+export const getNotes = (userId) => {
+  const queryRef = query(
+    collection(firestore, 'notes'),
+    where('status', '==', 'ACTIVE'),
+    where('userId', '==', userId)
+  );
+  return getDocs(queryRef);
+};
 
 export const signout = async () => signOut(auth);
