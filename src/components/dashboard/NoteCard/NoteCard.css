@@ -1,18 +1,17 @@
 .NoteCard__root {
-  width: 80%;
+  width: 100%;
   min-height: 12rem;
   padding: 1rem;
   border-radius: 4px;
   background-color: var(--color-box-shadow);
-  margin-right: 1rem;
   margin-bottom: 1rem;
   word-break: break-all;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .NoteCard__content {
   font-size: 1rem;
-  padding: 0.25rem 1.25rem;
   flex-grow: 1;
   outline: none;
 }
@@ -28,4 +27,14 @@
   cursor: pointer;
   color: var(--color-text-dark);
   font-weight: 500;
+}
+
+@media screen and (max-width: 600px) {
+  .NoteCard__root {
+    margin: 0;
+    margin-top: 1rem;
+  }
+  .NoteCard__root:nth-child(1) {
+    margin-top: 0;
+  }
 }

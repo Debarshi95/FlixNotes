@@ -88,9 +88,9 @@ const NotePad = () => {
           aria-hidden
         >
           {noteState.isPinned ? (
-            <BsFillPinFill className="d-block text-16 mr-1" />
+            <BsFillPinFill className="d-block text-14 mr-1" />
           ) : (
-            <BsPin className="d-block text-16 mr-1" />
+            <BsPin className="d-block text-14 mr-1" />
           )}
         </div>
         <div className="d-flex items-center popover__container">
@@ -109,23 +109,23 @@ const NotePad = () => {
             content={PopOverContent}
           >
             <MdLabel
-              className="d-block text-20 mr-1"
+              className="d-block text-18 mr-1"
               onClick={() => setIsPopoverOpen(!isPopoverOpen)}
             />
           </Popover>
 
           <BsPaletteFill
-            className="d-block text-16 mr-1"
+            className="d-block text-14 mr-1"
             onClick={() => setIsColorPaperOpen(!isColorPopoverOpen)}
           />
 
           <BsArchiveFill
-            className="d-block text-16 mr-1"
+            className="d-block text-14 mr-1"
             onClick={() => {
               dispatch({ type: noteActions.SET_STATUS, payload: noteStatus.ARCHIVE });
             }}
           />
-          <MdAddCircle className="d-block text-18 mr-1" onClick={handleAddNote} />
+          <MdAddCircle className="d-block text-16 mr-1" onClick={handleAddNote} />
         </div>
       </Typography>
       <div className="NotePad__inputContainer">

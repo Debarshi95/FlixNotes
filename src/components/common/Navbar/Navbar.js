@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <div className="Navbar__root">
-      <nav className="d-flex content-between max-w-85 mx-auto items-center">
+      <nav className="d-flex content-between mx-auto items-center">
         {xs && user ? (
           renderMenuIcon()
         ) : (

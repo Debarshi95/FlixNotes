@@ -7,7 +7,7 @@
   font-family: inherit;
   border-radius: 4px;
   position: relative;
-  height: 20rem;
+  height: 17rem;
   border-radius: 2px;
 }
 
@@ -51,7 +51,7 @@
 
 .popover__container {
   position: relative;
-  color: var(--color-primary-disabled);
+  color: var(--color-text-white);
 }
 .popover__label > input {
   outline: none;
@@ -70,7 +70,7 @@
   .NotePad__root {
     width: 93.5%;
     margin: 0 auto;
-    height: 17rem;
+    height: 15.5rem;
   }
   .popover__wrapper {
     left: 38% !important;
