@@ -47,11 +47,17 @@
   font-size: 1.5rem;
 }
 .Typography.Typography--xxlg {
-  font-size: 2.5rem;
+  font-size: 2.85rem;
 }
 .Typography.Typography--primary {
   color: var(--color-primary);
 }
 .Typography--end {
   text-align: end;
+}
+.Typography--center {
+  text-align: center;
+}
+.Typography--start {
+  text-align: start;
 }
