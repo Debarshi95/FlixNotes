@@ -1,4 +1,5 @@
 import React from 'react';
+import Typography from 'components/common/Typography/Typography';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -24,8 +25,10 @@ class ErrorBoundary extends React.Component {
     const { children } = this.props;
     if (hasError) {
       return (
-        <div className="errorBoundary__root">
-          <h2>Ooops! Something went wrong...</h2>
+        <div className="w-full p-1 h-screen d-flex flex-col items-center content-center">
+          <Typography variant="p" size="md" align="center">
+            Oops! Something went wrong...
+          </Typography>
         </div>
       );
     }
