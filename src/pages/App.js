@@ -1,3 +1,4 @@
+import NotFound from 'components/common/NotFound/NotFound';
 import PrivateRoute from 'components/common/PrivateRoute/PrivateRoute';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -26,6 +27,7 @@ const App = () => {
           {['/labels', '/archive', '/trash'].map((route) => (
             <Route
               path={route}
+              key={route}
               element={
                 <PrivateRoute>
                   <Util />
@@ -33,6 +35,7 @@ const App = () => {
               }
             />
           ))}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
       <Toaster />
