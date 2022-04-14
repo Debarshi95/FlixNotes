@@ -2,54 +2,67 @@
   color: inherit;
 }
 
-.Typography.Typography--200 {
+.Typography--200 {
   font-weight: 200;
 }
 
-.Typography.Typography--300 {
+.Typography--300 {
   font-weight: 300;
 }
-.Typography.Typography--400 {
+.Typography--400 {
   font-weight: 400;
 }
-.Typography.Typography--500 {
+.Typography--500 {
   font-weight: 500;
 }
-.Typography.Typography--600 {
+.Typography--600 {
   font-weight: 600;
 }
-.Typography.Typography--700 {
+.Typography--700 {
   font-weight: 700;
 }
 
-.Typography.Typography--bold {
+.Typography--bold {
   font-weight: bold;
 }
 
-.Typography.Typography--error {
+.Typography--error {
   color: var(--color-red);
   border: 1px solid var(--color-red);
   border-radius: 4px;
   padding: 4px 0;
 }
 
-.Typography.Typography--xs {
+.Typography--xs {
   font-size: 0.9rem;
 }
-.Typography.Typography--sm {
+.Typography--sm {
   font-size: 1.1rem;
 }
-.Typography.Typography--ssm {
+.Typography--ssm {
   font-size: 1.25rem;
 }
 
-.Typography.Typography--md {
+.Typography--md {
   font-size: 1.5rem;
 }
-.Typography.Typography--xxlg {
+.Typography--mmd {
+  font-size: 1.75rem;
+}
+.Typography--xl {
+  font-size: 2rem;
+}
+
+.Typography--xxl {
+  font-size: 2.25rem;
+}
+.Typography--xxxl {
+  font-size: 2.55rem;
+}
+.Typography--xxlg {
   font-size: 2.85rem;
 }
-.Typography.Typography--primary {
+.Typography--primary {
   color: var(--color-primary);
 }
 .Typography--end {
@@ -60,4 +73,33 @@
 }
 .Typography--start {
   text-align: start;
+}
+
+@media screen and (max-width: 422px) {
+  .Typography--sm {
+    font-size: 1rem;
+  }
+  .Typography--ssm {
+    font-size: 1.15rem;
+  }
+
+  .Typography--md {
+    font-size: 1.35rem;
+  }
+  .Typography--mmd {
+    font-size: 1.4rem;
+  }
+  .Typography--xl {
+    font-size: 1.65rem;
+  }
+
+  .Typography--xxl {
+    font-size: 1.9rem;
+  }
+  .Typography--xxxl {
+    font-size: 2rem;
+  }
+  .Typography--xxlg {
+    font-size: 2.3rem;
+  }
 }
