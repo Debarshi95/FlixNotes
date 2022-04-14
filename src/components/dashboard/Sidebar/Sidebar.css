@@ -29,7 +29,7 @@
   width: 72%;
   height: 100%;
   color: var(--color-primary);
-  z-index: 1;
+  z-index: 2;
 }
 .Sidebar__drawer--link {
   padding: 1rem 1.7rem;

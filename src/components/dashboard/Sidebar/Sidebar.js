@@ -39,21 +39,21 @@ const linksProps = [
 ];
 
 const Sidebar = () => {
-  const { showDrawer } = useSideDrawer();
+  const { showDrawer, toggleDrawer } = useSideDrawer();
   const xs = useMediaQuery({ maxWidth: '600px' });
 
   const renderMobileDrawer = useCallback(
     () => (
       <div className="Sidebar__drawer">
         {linksProps.map((linkObj) => (
-          <NavLink to={linkObj.path} key={linkObj.path}>
+          <NavLink to={linkObj.path} key={linkObj.path} onClick={toggleDrawer}>
             <div className="d-flex items-center Sidebar__drawer--link">
               {linkObj.icon}
               <p className="ml-2">{linkObj.name}</p>
             </div>
           </NavLink>
         ))}
-        <Button component="div" className="mb-4 content-start mx-1">
+        <Button component="div" className="my-2 content-start mx-1">
           <Typography variant="h6" className="d-flex items-center" onClick={signout}>
             <FaSignOutAlt className="mx-1" />
             <span className="d-block">Debarshi</span>
@@ -61,7 +61,7 @@ const Sidebar = () => {
         </Button>
       </div>
     ),
-    []
+    [toggleDrawer]
   );
 
   return !xs ? (
