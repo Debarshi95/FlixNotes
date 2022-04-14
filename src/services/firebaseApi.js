@@ -59,4 +59,14 @@ export const deleteNote = (id) => {
   return deleteDoc(docRef);
 };
 
+export const getNoteByQuery = ({ where: queryWhere, operator, value: queryValue }) => {
+  let queryRef;
+  if (queryWhere === 'ALL') {
+    queryRef = query(collection(firestore, 'notes'));
+  } else {
+    queryRef = query(collection(firestore, 'notes'), where(queryWhere, operator, queryValue));
+  }
+  return getDocs(queryRef);
+};
+
 export const signout = async () => signOut(auth);
