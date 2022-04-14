@@ -7,7 +7,7 @@ const LabelContainer = ({ labels, handleLabelDelete }) => {
   return (
     <div className="LabelContainer__root">
       {labels.map((label, idx) => (
-        <div className="d-flex mx-1 items-center" key={idx}>
+        <div className="LabelItem d-flex items-center" key={idx}>
           <Typography variant="h6" size="xs" className="Typography--500">
             {label}
           </Typography>
