@@ -5,6 +5,7 @@ import SignIn from './auth/Signin/Signin';
 import Signup from './auth/Signup/Signup';
 import Dashboard from './dashboard/Dashboard';
 import Home from './home/Home';
+import Util from './utils/Util';
 
 const App = () => {
   return (
@@ -22,6 +23,16 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          {['/labels', '/archive', '/trash'].map((route) => (
+            <Route
+              path={route}
+              element={
+                <PrivateRoute>
+                  <Util />
+                </PrivateRoute>
+              }
+            />
+          ))}
         </Routes>
       </Router>
       <Toaster />
