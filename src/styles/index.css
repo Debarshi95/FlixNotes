@@ -34,6 +34,10 @@ body {
   margin-left: 2.5rem;
 }
 
+.content-start {
+  justify-content: start;
+}
+
 @media screen and (max-width: 600px) {
   .navlink--primary-contained {
     margin: 0;

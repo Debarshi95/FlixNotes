@@ -53,6 +53,12 @@ const Sidebar = () => {
             </div>
           </NavLink>
         ))}
+        <Button component="div" className="mb-4 content-start mx-1">
+          <Typography variant="h6" className="d-flex items-center" onClick={signout}>
+            <FaSignOutAlt className="mx-1" />
+            <span className="d-block">Debarshi</span>
+          </Typography>
+        </Button>
       </div>
     ),
     []

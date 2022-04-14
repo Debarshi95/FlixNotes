@@ -10,7 +10,7 @@ import Util from './utils/Util';
 
 const App = () => {
   return (
-    <div>
+    <>
       <Router>
         <Routes>
           <Route path="/" index element={<Home />} />
@@ -39,7 +39,7 @@ const App = () => {
         </Routes>
       </Router>
       <Toaster />
-    </div>
+    </>
   );
 };
 
