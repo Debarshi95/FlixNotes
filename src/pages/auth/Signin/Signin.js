@@ -1,13 +1,15 @@
 import { Form, Formik } from 'formik';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 import { AuthErrorCodes } from 'firebase/auth';
 import { Button, Navbar, Typography, Input } from 'components';
 import { validateLogin } from 'utils/formValidations';
 import { signin } from 'services/firebaseApi';
+import { useAuth } from 'providers/AuthProvider/AuthProvider';
 import { authErrorMessage } from 'constants/authMessages';
 import './Signin.css';
 
 const Signin = () => {
+  const { user: authUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -35,6 +37,10 @@ const Signin = () => {
       },
     });
   };
+
+  if (authUser) {
+    return <Navigate replace to="/dashboard" />;
+  }
 
   return (
     <div className="Signin__root">
