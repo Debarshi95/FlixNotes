@@ -12,10 +12,10 @@ const Home = () => {
             FlixNote
           </Typography>
           <div className="d-flex flex-col">
-            <Typography className="py-1 text-bold" variant="h5">
-              <span className="d-block text-bolder text-22"> Meet your modern Note Taking app</span>
+            <Typography className="py-1 text-bold" variant="h5" size="mmd">
+              Meet your modern Note Taking app
             </Typography>
-            <Typography variant="p" className="mx-auto max-w-85" align="center" size="ssm">
+            <Typography variant="p" className="mx-auto max-w-75" align="center" size="ssm">
               Manage your daily tasks in a moren way and boost your efficacy and production limits
               with any efforts
             </Typography>
