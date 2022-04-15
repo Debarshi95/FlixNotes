@@ -13,6 +13,8 @@ import {
   doc,
   serverTimestamp,
   updateDoc,
+  getDoc,
+  orderBy,
 } from 'Firebase';
 
 export const signup = async ({ email, password }) => {
@@ -77,4 +79,27 @@ export const getNotes = (userId) => {
   return getDocs(queryRef);
 };
 
+export const createLabel = ({ label, value, userId, notes = [] }) => {
+  return addDoc(collection(firestore, 'labels'), {
+    label,
+    value,
+    userId,
+    notes,
+    createdAt: serverTimestamp(),
+  });
+};
+
+export const getLabels = (userId) => {
+  const queryRef = query(
+    collection(firestore, 'labels'),
+    where('userId', '==', userId),
+    orderBy('createdAt', 'desc')
+  );
+  return getDocs(queryRef);
+};
+
+export const getDocById = (docId, path = '') => {
+  const docRef = doc(firestore, path, docId);
+  return getDoc(docRef);
+};
 export const signout = async () => signOut(auth);

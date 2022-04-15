@@ -1,16 +1,16 @@
-import { useCallback, useMemo, useRef, useState, useReducer } from 'react';
+import { useState, useReducer, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import Circle from '@uiw/react-color-circle';
 import ReactQuill from 'react-quill';
-import { Popover } from 'react-tiny-popover';
 import { BsPaletteFill, BsFillPinFill, BsPin, BsArchiveFill } from 'react-icons/bs';
-import { MdLabel, MdAddCircle } from 'react-icons/md';
-import { useAuth } from 'providers/AuthProvider/AuthProvider';
-import { createNote } from 'services/firebaseApi';
+import { toCapitalize } from 'utils/helper-funcs';
+import { useNote, useAuth } from 'providers';
+import { createLabel, getDocById, getLabels } from 'services/firebaseApi';
 import { circlePopperColors, circlePopperStyles } from 'styles/defaultStyles';
 import { Typography, Button, LabelContainer } from 'components';
 import noteReducer from 'reducers/noteReducer';
 import { noteActions, noteStatus } from 'constants/authMessages';
+import SelectInput from 'components/common/SelectInput/SelectInput';
 import 'react-quill/dist/quill.snow.css';
 import './NotePad.css';
 
@@ -23,55 +23,90 @@ const initialState = {
 };
 
 const NotePad = () => {
-  const [isColorPopoverOpen, setIsColorPaperOpen] = useState(false);
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isColorPopoverOpen, setIsColorPopoverOpen] = useState(false);
   const [noteState, dispatch] = useReducer(noteReducer, initialState);
-  const labelRef = useRef(null);
+  const [options, setOptions] = useState([]);
 
   const { user } = useAuth();
+  const { handleAddNote } = useNote();
 
-  const handleLabelAdd = useCallback(() => {
-    const { labels } = noteState;
-    if (labelRef.current.value !== '') {
-      dispatch({ type: noteActions.SET_LABEL, payload: [...labels, labelRef.current.value] });
+  useEffect(() => {
+    const fetchLabels = async () => {
+      try {
+        const res = await getLabels(user.uid);
+        if (res?.docs) {
+          const docs = [];
+          res.docs.forEach((doc) => {
+            docs.push({ id: doc.id, ...doc.data() });
+          });
+          setOptions([...docs]);
+        }
+      } catch (error) {
+        toast.error("Oops!! Couldn't get labels");
+      }
+    };
+
+    if (user?.uid) {
+      fetchLabels();
     }
-    setIsPopoverOpen(false);
-  }, [labelRef, noteState]);
+  }, [user?.uid]);
 
-  const handleLabelDelete = (text) => {
-    const { labels } = noteState;
-    const filteredLabels = labels?.filter((labelText) => labelText !== text);
-    dispatch({ type: noteActions.SET_LABEL, payload: [...filteredLabels] });
-  };
-
-  const PopOverContent = useMemo(
-    () => (
-      <div className="popover__label d-flex">
-        <input type="text" name="label" ref={labelRef} placeholder="Enter a label" />
-        <Button type="button" onClick={handleLabelAdd}>
-          ADD
-        </Button>
-      </div>
-    ),
-    [handleLabelAdd]
+  const handleLabelDelete = useCallback(
+    (text) => {
+      const { labels } = noteState;
+      const filteredLabels = labels?.filter((labelText) => labelText !== text);
+      dispatch({ type: noteActions.SET_LABEL, payload: [...filteredLabels] });
+    },
+    [noteState]
   );
 
-  const handleAddNote = async (e) => {
+  const handleCreateNote = async (e) => {
     e.stopPropagation();
     if (noteState.content === '') {
       toast.error('Note body cannot be empty');
       return;
     }
-    try {
-      const res = await createNote({ ...noteState, userId: user.uid });
-      if (res?.id) {
-        toast.success('Note added successfully!!');
-        dispatch({ type: noteActions.RESET, payload: initialState });
-      }
-    } catch (error) {
-      toast.error("Oops!! Couldn't create note");
+    const res = await handleAddNote(noteState);
+    if (res) {
+      dispatch({ type: noteActions.RESET, payload: initialState });
+      toast.success('Note added successfully!!');
     }
   };
+
+  const handleOnCreateLabel = useCallback(
+    async (value) => {
+      const { labels } = noteState;
+      try {
+        const res = await createLabel({
+          userId: user?.uid,
+          label: toCapitalize(value),
+          value: value.toLowerCase(),
+        });
+
+        if (res?.id) {
+          const newLabel = await getDocById(res.id, 'labels');
+          if (newLabel?.id) {
+            setOptions([...options, { id: newLabel.id, ...newLabel.data() }]);
+            dispatch({ type: noteActions.SET_LABEL, payload: [...labels, value] });
+          }
+        }
+      } catch (error) {
+        toast.error("Couldn't create label. Some error occurred!!");
+      }
+    },
+    [noteState, options, user?.uid]
+  );
+
+  const handleOnLabelClick = useCallback(
+    (value) => {
+      const { labels } = noteState;
+      const labelExits = labels?.find((labelText) => labelText === value);
+      if (!labelExits) {
+        dispatch({ type: noteActions.SET_LABEL, payload: [...labels, value] });
+      }
+    },
+    [noteState]
+  );
 
   return (
     <div className="NotePad__root" style={{ backgroundColor: noteState?.cardColor }}>
@@ -100,22 +135,10 @@ const NotePad = () => {
               style={circlePopperStyles}
             />
           )}
-          <Popover
-            isOpen={isPopoverOpen}
-            position={['top']}
-            containerClassName="popover__wrapper"
-            align="end"
-            content={PopOverContent}
-          >
-            <MdLabel
-              className="d-block text-18 mr-1"
-              onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-            />
-          </Popover>
 
           <BsPaletteFill
             className="d-block text-14 mr-1"
-            onClick={() => setIsColorPaperOpen(!isColorPopoverOpen)}
+            onClick={() => setIsColorPopoverOpen(!isColorPopoverOpen)}
           />
 
           <BsArchiveFill
@@ -124,7 +147,12 @@ const NotePad = () => {
               dispatch({ type: noteActions.SET_STATUS, payload: noteStatus.ARCHIVE });
             }}
           />
-          <MdAddCircle className="d-block text-16 mr-1" onClick={handleAddNote} />
+
+          <SelectInput
+            onCreate={handleOnCreateLabel}
+            onClick={handleOnLabelClick}
+            options={options}
+          />
         </div>
       </Typography>
       <div className="NotePad__inputContainer">
@@ -136,9 +164,18 @@ const NotePad = () => {
           placeholder="Enter some text..."
         />
       </div>
-      {noteState.labels.length > 0 && (
+      <div className="NotePad__footer d-flex content-between">
         <LabelContainer labels={noteState.labels} handleLabelDelete={handleLabelDelete} />
-      )}
+
+        <Button
+          component="button"
+          variant="contained"
+          className="text-bold"
+          onClick={handleCreateNote}
+        >
+          ADD
+        </Button>
+      </div>
     </div>
   );
 };

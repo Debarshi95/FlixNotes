@@ -4,7 +4,6 @@
   display: flex;
   flex-wrap: wrap;
   font-size: 1rem;
-  padding: 0.25rem 1.25rem;
 }
 .LabelContainer__root .close--icon {
   border-radius: 50%;

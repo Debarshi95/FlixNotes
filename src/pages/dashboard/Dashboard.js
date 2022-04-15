@@ -1,26 +1,10 @@
 import { Navbar, NotePad, Sidebar } from 'components';
 import NoteCard from 'components/dashboard/NoteCard/NoteCard';
-import { useAuth } from 'providers/AuthProvider/AuthProvider';
-import { useEffect, useState } from 'react';
-import { getNotes } from 'services/firebaseApi';
+import { useNote } from 'providers';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const [notes, setNotes] = useState([]);
-  const { user } = useAuth();
-  useEffect(() => {
-    const fetchNotes = async () => {
-      const res = await getNotes(user.uid);
-      if (res?.docs) {
-        const docs = [];
-        res.docs.forEach((doc) => {
-          docs.push({ id: doc.id, ...doc.data() });
-        });
-        setNotes([...docs]);
-      }
-    };
-    fetchNotes();
-  }, [user]);
+  const { notes } = useNote();
 
   return (
     <>
