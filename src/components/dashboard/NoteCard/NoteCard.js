@@ -41,7 +41,7 @@ const NoteCard = ({ note }) => {
 
   return (
     <div className="NoteCard__root" style={{ backgroundColor: note?.cardColor }}>
-      <Typography variant="div" className="d-flex content-between">
+      <Typography variant="div" className="NoteCard__header d-flex content-between">
         <div className="d-flex">
           <Typography
             variant="h"

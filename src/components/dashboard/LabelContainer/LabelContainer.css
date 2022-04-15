@@ -4,16 +4,12 @@
   display: flex;
   flex-wrap: wrap;
   font-size: 1rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  background-color: var(--color-main-bg);
+  padding: 0.25rem 1.25rem;
 }
 .LabelContainer__root .close--icon {
   border-radius: 50%;
-  width: 17px;
-  height: 17px;
+  width: 20px;
+  height: 20px;
   margin-left: 6px;
   display: flex;
   justify-content: center;
@@ -23,11 +19,11 @@
   background-color: var(--color-text-dark);
 }
 .LabelItem {
-  background-color: var(--color-text-white);
-  border-radius: 3px;
-  margin: 6px 3px;
-  padding: 4px 6px;
+  background-color: var(--color-primary-disabled);
+  border-radius: 16px;
+  /* margin: 3px 3px; */
+  padding: 4px 1rem;
 }
 .LabelItem:nth-child(1) {
-  margin-left: 6px;
+  /* margin-left: 6px; */
 }

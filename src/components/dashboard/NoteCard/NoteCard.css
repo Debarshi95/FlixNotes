@@ -1,7 +1,6 @@
 .NoteCard__root {
   width: 100%;
   min-height: 12rem;
-  padding: 1rem;
   border-radius: 4px;
   background-color: var(--color-box-shadow);
   margin-bottom: 1rem;
@@ -14,6 +13,9 @@
   font-size: 1rem;
   flex-grow: 1;
   outline: none;
+  max-height: 10rem;
+  overflow: hidden auto;
+  padding: 0.25rem 1.25rem;
 }
 
 .close--icon {
@@ -27,6 +29,9 @@
   cursor: pointer;
   color: var(--color-text-dark);
   font-weight: 500;
+}
+.NoteCard__header {
+  padding: 1rem 1.25rem 0.5rem 1.25rem;
 }
 
 @media screen and (max-width: 600px) {
