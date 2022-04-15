@@ -45,7 +45,7 @@ const NoteProvider = ({ children, user }) => {
   const handleNoteUpdate = useCallback(
     async ({ type, noteId, payload }) => {
       const note = notes.find((_note) => _note.id === noteId);
-      console.log({ note });
+
       if (!note) return;
 
       try {
@@ -66,7 +66,6 @@ const NoteProvider = ({ children, user }) => {
         }
         toast.success('Note updated successfully!');
       } catch (error) {
-        console.log({ error });
         toast.error("Error! Couldn't update note");
       }
     },
