@@ -62,7 +62,8 @@ const NoteProvider = ({ children, user }) => {
         const updatedNote = await getDocById(note.id, 'notes');
         if (updatedNote?.id) {
           const filteredNotes = notes.filter((_note) => _note.id !== noteId);
-          setNotes([{ id: updatedNote.id, ...updatedNote.data() }, ...filteredNotes]);
+          const data = { id: updatedNote.id, ...updatedNote.data() };
+          setNotes([data, ...filteredNotes]);
         }
         toast.success('Note updated successfully!');
       } catch (error) {

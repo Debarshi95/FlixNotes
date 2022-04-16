@@ -50,15 +50,13 @@ const NoteCard = ({ note }) => {
           <BsArchiveFill
             className="d-block text-12 mr-1"
             cursor="pointer"
-            onClick={() =>
-              handleUpdateNote({ type: 'UPDATE_STATUS', payload: { status: 'ARCHIVE' } })
-            }
+            onClick={() => handleUpdateNote({ type: 'UPDATE_STATUS', payload: 'ARCHIVE' })}
           />
         </div>
 
         <FaTrash
           cursor="pointer"
-          onClick={() => handleUpdateNote({ type: 'UPDATE_STATUS', payload: { status: 'TRASH' } })}
+          onClick={() => handleUpdateNote({ type: 'UPDATE_STATUS', payload: 'TRASH' })}
         />
       </Typography>
       <div
