@@ -1,51 +1,39 @@
 /* eslint-disable react/no-danger */
 import { Typography, LabelContainer } from 'components';
-import toast from 'react-hot-toast';
 import sanitizeHtml from 'sanitize-html';
-import { updateNote } from 'services/firebaseApi';
 import { FaTrash } from 'react-icons/fa';
 import { BsArchiveFill, BsFillPinFill, BsPin } from 'react-icons/bs';
-
+import { useCallback, useMemo, useState } from 'react';
+import { useNote } from 'providers';
+import { debounce } from 'utils/helper-funcs';
 import './NoteCard.css';
-import { useState } from 'react';
 
 const NoteCard = ({ note }) => {
   const [isNoteEditable, setIsNoteEditable] = useState(false);
 
-  const handleNoteUpdate = async ({ type, status = 'ACTIVE', value = '' }) => {
-    try {
-      if (type === 'UPDATE_PINNED') {
-        await updateNote({ ...note, isPinned: !note.isPinned });
-        toast.success('Note updated successfully!');
-      }
-      if (type === 'UPDATE_STATUS') {
-        await updateNote({ ...note, status });
-        toast.success('Note updated successfully!');
-      }
-      if (type === 'UPDATE_CONTENT') {
-        await updateNote({ ...note, content: value });
-      }
-    } catch (error) {
-      toast.error("Error! Couldn't update note");
-    }
-  };
+  const { handleNoteUpdate } = useNote();
+
+  const handleUpdateNote = useCallback(
+    async ({ type, payload }) => {
+      handleNoteUpdate({ noteId: note.id, type, payload });
+    },
+    [handleNoteUpdate, note.id]
+  );
 
   const handleLabelDelete = async (selectedLabel) => {
     const filteredLabels = note.labels.filter((label) => label !== selectedLabel);
-    try {
-      await updateNote({ ...note, labels: [...filteredLabels] });
-    } catch (error) {
-      toast.error("Error! Couldn't update note");
-    }
+    handleNoteUpdate({ type: 'UPDATE_LABELS', noteId: note.id, payload: filteredLabels });
   };
+
+  const handleContentChange = useMemo(() => debounce(handleUpdateNote, 700), [handleUpdateNote]);
 
   return (
     <div className="NoteCard__root" style={{ backgroundColor: note?.cardColor }}>
-      <Typography variant="div" className="d-flex content-between">
+      <Typography variant="div" className="NoteCard__header d-flex content-between">
         <div className="d-flex">
           <Typography
             variant="h"
-            onClick={() => handleNoteUpdate({ type: 'UPDATE_PINNED' })}
+            onClick={() => handleUpdateNote({ type: 'UPDATE_PINNED' })}
             align="end"
             className="mr-1"
           >
@@ -55,13 +43,13 @@ const NoteCard = ({ note }) => {
           <BsArchiveFill
             className="d-block text-12 mr-1"
             cursor="pointer"
-            onClick={() => handleNoteUpdate({ type: 'UPDATE_STATUS', status: 'ARCHIVE' })}
+            onClick={() => handleUpdateNote({ type: 'UPDATE_STATUS', payload: 'ARCHIVE' })}
           />
         </div>
 
         <FaTrash
           cursor="pointer"
-          onClick={() => handleNoteUpdate({ type: 'UPDATE_STATUS', status: 'TRASH' })}
+          onClick={() => handleUpdateNote({ type: 'UPDATE_STATUS', payload: 'TRASH' })}
         />
       </Typography>
       <div
@@ -71,7 +59,7 @@ const NoteCard = ({ note }) => {
         onKeyUp={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          handleNoteUpdate({ type: 'UPDATE_CONTENT', value: e.target.textContent });
+          handleContentChange({ type: 'UPDATE_CONTENT', payload: e.target.textContent });
         }}
         onClick={(e) => {
           e.preventDefault();

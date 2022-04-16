@@ -63,6 +63,9 @@
   left: 67% !important;
   overflow: hidden !important;
 }
+.NotePad__footer {
+  padding: 0.25rem 1rem;
+}
 @media screen and (max-width: 600px) {
   .ql-toolbar.ql-snow + .ql-container.ql-snow {
     max-width: 92vw;

@@ -13,6 +13,8 @@ import {
   doc,
   serverTimestamp,
   updateDoc,
+  getDoc,
+  orderBy,
 } from 'Firebase';
 
 export const signup = async ({ email, password }) => {
@@ -59,22 +61,32 @@ export const deleteNote = (id) => {
   return deleteDoc(docRef);
 };
 
-export const getNoteByQuery = ({ where: queryWhere, operator, value: queryValue }) => {
-  let queryRef;
-  if (queryWhere === 'ALL') {
-    queryRef = query(collection(firestore, 'notes'));
-  } else {
-    queryRef = query(collection(firestore, 'notes'), where(queryWhere, operator, queryValue));
-  }
+export const getNotes = (userId) => {
+  const queryRef = query(collection(firestore, 'notes'), where('userId', '==', userId));
   return getDocs(queryRef);
 };
-export const getNotes = (userId) => {
+
+export const createLabel = ({ label, value, userId, notes = [] }) => {
+  return addDoc(collection(firestore, 'labels'), {
+    label,
+    value,
+    userId,
+    notes,
+    createdAt: serverTimestamp(),
+  });
+};
+
+export const getLabels = (userId) => {
   const queryRef = query(
-    collection(firestore, 'notes'),
-    where('status', '==', 'ACTIVE'),
-    where('userId', '==', userId)
+    collection(firestore, 'labels'),
+    where('userId', '==', userId),
+    orderBy('createdAt', 'desc')
   );
   return getDocs(queryRef);
 };
 
+export const getDocById = (docId, path = '') => {
+  const docRef = doc(firestore, path, docId);
+  return getDoc(docRef);
+};
 export const signout = async () => signOut(auth);

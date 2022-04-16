@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+[![Actions Status](https://github.com/Debarshi95/FlixNotes/workflows/Build%20and%20Deploy/badge.svg)](https://github.com/Debarshi95/FlixNotes/actions)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FlixNotes
 
-## Available Scripts
+A ReactJS web app for managing notes.
 
-In the project directory, you can run:
+## Demo
 
-### `yarn start`
+[Deployed on Netlify using github actions](https://debarshib-flixnotes.netlify.app)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Authentication facility for old & new users
+- Authenticated users can create, edit, update, delete new and old notes
+- Custom debounce function to optimize network request when editing notes
+- Each Note has the following facilities:
+  - Change background color
+  - Add/Delete labels
+  - Pin/Unpin notes
+  - Set notes to **ACTIVE** / **TRASH** or **ARCHIVE**
+- LazyLoading/Code-splitting of components to dynamically load at runtime
+- Error management using ErrorBoundary to catch and show fallback UI.
+- LazyLoading/Code-splitting of components.
+- Loading Spinner when fetching initial data.
+- Responsive UI for all screens (Desktop, Tablet, Mobile)
 
-### `yarn test`
+## Built using:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [ReactJS](https://reactjs.org/) - Frontend framework
+- [React Router](https://reactrouter.com/) - For routing & navigation
+- [Firebase](https://firebase.google.com) - serves as backend to store data and authentication
+- [React-Hot-Toast](https://react-hot-toast.com) - to show Toast Notifications
+- [React-Quill](https://zenoamaro.github.io/react-quill) - a rich text editor
 
-### `yarn build`
+## Screenshots
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Desktop
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Desktop-1](screenshot/desktop1.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Desktop-2](screenshot/desktop2.png)
 
-### `yarn eject`
+![Genre](screenshot/desktop3.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Info](screenshot/desktop4.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Mobile
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br/>
+<div align="center">
 
-## Learn More
+![Mobile-1](screenshot/mobile1.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Mobile-2](screenshot/mobile2.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Mobile-3](screenshot/mobile3.png)
 
-### Code Splitting
+![Mobile-4](screenshot/mobile4.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+</div>
 
-### Analyzing the Bundle Size
+## Run Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Clone the project
+  `git clone https://github.com/Debarshi95/FlixNotes.git`
+- Go to the project directory
+- cd flix-nots
+- Install dependencies
+  `yarn`
+- Create a **.env** file
+- Create a project inside Google Firebase and export the configuration
+- Add the following configuration to your .env file
 
-### Making a Progressive Web App
+```
+REACT_APP_API_KEY="<Firebase API_KEY>"
+REACT_APP_AUTH_DOMAIN="<Firebase AUTH_DOMAIN>"
+REACT_APP_PROJECT_ID="<Firebase PROJECT_ID>"
+REACT_APP_STORAGE_BUCKET="<Firebase STORAGE_BUCKET>"
+REACT_APP_MESSAGING_SENDER_ID="<Firebase MESSAGING_SENDER_ID>"
+REACT_APP_APP_ID="<Firebase APP_ID>"
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Start the server
+  `yarn start`

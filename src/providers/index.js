@@ -1,2 +1,6 @@
-export { default as AuthProvider } from './AuthProvider/AuthProvider';
-export { default as SideDrawerProvider } from './SideDrawerProvider/SideDrawerProvider';
+export { default as AuthProvider, useAuth } from './AuthProvider/AuthProvider';
+export {
+  default as SideDrawerProvider,
+  useSideDrawer,
+} from './SideDrawerProvider/SideDrawerProvider';
+export { default as NoteProvider, useNote } from './NoteProvider/NoteProvider';
