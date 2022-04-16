@@ -57,7 +57,14 @@ const Signin = () => {
           validationSchema={validateLogin()}
           onSubmit={handleSubmit}
         >
-          {({ handleSubmit: handleFormikSubmit, isSubmitting, values, errors, isValid }) => {
+          {({
+            handleSubmit: handleFormikSubmit,
+            isSubmitting,
+            values,
+            errors,
+            isValid,
+            setValues,
+          }) => {
             return (
               <>
                 {errors?.message && (
@@ -91,7 +98,7 @@ const Signin = () => {
                     component="button"
                     type="submit"
                     variant="contained"
-                    className="Signin__button text-bold w-10 text-10"
+                    className="Signin__button text-bold w-10 Typography--xs"
                     disabled={
                       isSubmitting ||
                       !isValid ||
@@ -99,6 +106,21 @@ const Signin = () => {
                     }
                   >
                     {isSubmitting ? 'Submitting...' : 'Login'}
+                  </Button>
+                  <Button
+                    component="button"
+                    type="click"
+                    variant="contained"
+                    className="Signin__button text-bold w-10 Typography--xs"
+                    onClick={() => {
+                      setValues({
+                        email: process.env.REACT_APP_TEST_EMAIL,
+                        password: process.env.REACT_APP_TEST_PASSWORD,
+                      });
+                    }}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Sign in as Test User'}
                   </Button>
                 </Form>
               </>
