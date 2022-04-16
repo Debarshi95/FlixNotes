@@ -9,7 +9,7 @@ const Util = () => {
   const { pathname } = useLocation();
   const title = pathname.split('/')[1].toUpperCase();
 
-  const filteredNotes = filterNotes(notes, { status: title });
+  const filteredNotes = filterNotes(notes, { status: title !== 'LABELS' ? title : null });
 
   return (
     <>

@@ -1,11 +1,8 @@
 /* eslint-disable react/no-danger */
 import { Typography, LabelContainer } from 'components';
-import toast from 'react-hot-toast';
 import sanitizeHtml from 'sanitize-html';
-import { updateNote } from 'services/firebaseApi';
 import { FaTrash } from 'react-icons/fa';
 import { BsArchiveFill, BsFillPinFill, BsPin } from 'react-icons/bs';
-
 import { useCallback, useMemo, useState } from 'react';
 import { useNote } from 'providers';
 import { debounce } from 'utils/helper-funcs';
@@ -25,11 +22,7 @@ const NoteCard = ({ note }) => {
 
   const handleLabelDelete = async (selectedLabel) => {
     const filteredLabels = note.labels.filter((label) => label !== selectedLabel);
-    try {
-      await updateNote({ ...note, labels: [...filteredLabels] });
-    } catch (error) {
-      toast.error("Error! Couldn't update note");
-    }
+    handleNoteUpdate({ type: 'UPDATE_LABELS', noteId: note.id, payload: filteredLabels });
   };
 
   const handleContentChange = useMemo(() => debounce(handleUpdateNote, 700), [handleUpdateNote]);

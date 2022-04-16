@@ -69,7 +69,7 @@ const NotePad = () => {
     const res = await handleAddNote(noteState);
     if (res) {
       dispatch({ type: noteActions.RESET, payload: initialState });
-      toast.success('Note added successfully!!');
+      toast.success('Note created successfully!!');
     }
   };
 

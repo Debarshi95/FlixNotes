@@ -58,6 +58,10 @@ const NoteProvider = ({ children, user }) => {
         if (type === 'UPDATE_CONTENT') {
           note.content = payload;
         }
+        if (type === 'UPDATE_LABELS') {
+          note.labels = [...payload];
+        }
+
         await updateNote({ ...note });
         const updatedNote = await getDocById(note.id, 'notes');
         if (updatedNote?.id) {
