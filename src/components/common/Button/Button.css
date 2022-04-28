@@ -13,7 +13,7 @@
 .Button--contained {
   background-color: var(--color-primary);
   color: var(--color-text-white);
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .Button--outlined {
@@ -22,6 +22,24 @@
   background-color: transparent;
 }
 
+.Button--icon {
+  font-size: 1.15rem;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  min-width: 0;
+  margin-right: 4px;
+  color: var(--color-text-icon);
+}
+.Button--icon-primary {
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+.Button--icon:hover {
+  background-color: var(--color-dark-hover);
+  color: var(--color-text-white);
+}
 .Button__text--capitalize {
   text-transform: uppercase;
 }
