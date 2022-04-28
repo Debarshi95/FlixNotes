@@ -6,6 +6,9 @@
   --color-primary-disabled: #fc8763;
   --color-danger: #cc4e59;
   --color-box-shadow: rgba(0, 0, 0, 0.16);
+
+  --color-text-icon: #222222;
+  --color-dark-hover: rgba(39, 36, 36, 0.75);
 }
 body {
   padding: 0;
@@ -36,6 +39,14 @@ body {
 
 .content-start {
   justify-content: start;
+}
+
+.py-half {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.flex-1 {
+  flex: 1;
 }
 
 @media screen and (max-width: 600px) {
