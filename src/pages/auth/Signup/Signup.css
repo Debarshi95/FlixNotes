@@ -1,8 +1,3 @@
-.Signup__root {
-  min-height: 100vh;
-  width: 100%;
-}
-
 .Signup__formContainer {
   max-width: 26rem;
   margin: 2rem auto;

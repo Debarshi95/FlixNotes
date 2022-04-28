@@ -1,35 +1,34 @@
-import { Navbar, Sidebar, Typography } from 'components';
-import NoteCard from 'components/dashboard/NoteCard/NoteCard';
+import { Typography, Wrapper, NoteCard } from 'components';
 import { useNote } from 'providers';
+import { useCallback } from 'react';
 import { useLocation } from 'react-router';
-import { filterNotes } from 'reducers/noteFilterReducer';
 
 const Util = () => {
   const { notes } = useNote();
   const { pathname } = useLocation();
   const title = pathname.split('/')[1].toUpperCase();
 
+  const filterNotes = useCallback((noteList, { isPinned, status }) => {
+    return noteList
+      ?.filter((note) => (isPinned ? note.isPinned : true))
+      ?.filter((note) => (status ? note.status === status : true));
+  }, []);
+
   const filteredNotes = filterNotes(notes, { status: title !== 'LABELS' ? title : null });
 
   return (
-    <>
-      <Navbar />
-      <section className="Dashboard__root">
-        <div className="d-flex">
-          <Sidebar />
-          <div className="Dashboard__itemContainer">
-            <Typography size="md" align="center" className="Typography--primary text-bold my-1">
-              {title}
-            </Typography>
-            <article className="Dashboard__cardContainer">
-              {filteredNotes?.map((note) => (
-                <NoteCard key={note.id} note={note} />
-              ))}
-            </article>
-          </div>
-        </div>
+    <Wrapper>
+      <section className="d-flex flex-1 flex-col p-1">
+        <Typography size="md" align="center" className="Typography--primary text-bold my-1">
+          {title}
+        </Typography>
+        <article>
+          {filteredNotes?.map((note) => (
+            <NoteCard key={note.id} note={note} />
+          ))}
+        </article>
       </section>
-    </>
+    </Wrapper>
   );
 };
 

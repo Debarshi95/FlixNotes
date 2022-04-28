@@ -1,24 +1,25 @@
 import { Form, Formik } from 'formik';
-import { Navigate, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { AuthErrorCodes } from 'firebase/auth';
-import { Button, Navbar, Typography, Input } from 'components';
+import { Button, Typography, Input, Wrapper } from 'components';
 import { validateLogin } from 'utils/formValidations';
 import { signin } from 'services/firebaseApi';
-import { useAuth } from 'providers/AuthProvider/AuthProvider';
 import { authErrorMessage } from 'constants/authMessages';
+import withAuthRoute from 'hoc/withAuthRoute';
 import './Signin.css';
 
 const Signin = () => {
-  const { user: authUser } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { resetForm }) => {
     let message = '';
+    const pathname = location.state?.from?.pathname || '/dashboard';
     try {
       const res = await signin(values);
 
       if (res?.user) {
-        navigate('/dashboard', { replace: true });
+        navigate(pathname, { replace: true });
       }
     } catch (err) {
       if (err?.code === AuthErrorCodes.INVALID_PASSWORD) {
@@ -38,13 +39,8 @@ const Signin = () => {
     });
   };
 
-  if (authUser) {
-    return <Navigate replace to="/dashboard" />;
-  }
-
   return (
-    <div className="Signin__root">
-      <Navbar />
+    <Wrapper hassidebar={false}>
       <div className="Signin__formContainer d-flex flex-col">
         <Typography variant="h5" className="Typography--primary mt-1 mb-2" align="center" size="md">
           Signin to continue
@@ -128,8 +124,8 @@ const Signin = () => {
           }}
         </Formik>
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
-export default Signin;
+export default withAuthRoute(Signin);

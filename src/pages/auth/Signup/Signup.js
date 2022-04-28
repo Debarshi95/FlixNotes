@@ -1,15 +1,14 @@
 import { AuthErrorCodes } from 'firebase/auth';
 import { Form, Formik } from 'formik';
-import { Navigate, useNavigate } from 'react-router';
-import { Button, Navbar, Typography, Input } from 'components';
-import { useAuth } from 'providers/AuthProvider/AuthProvider';
+import { useNavigate } from 'react-router';
+import { Button, Typography, Input, Wrapper } from 'components';
 import { checkUserNameTaken, createUser, signup } from 'services/firebaseApi';
 import { validateRegister } from 'utils/formValidations';
 import { authErrorMessage } from 'constants/authMessages';
+import withAuthRoute from 'hoc/withAuthRoute';
 import './Signup.css';
 
 const Signup = () => {
-  const { user: authUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { resetForm, setFieldError }) => {
@@ -52,13 +51,8 @@ const Signup = () => {
     return null;
   };
 
-  if (authUser) {
-    return <Navigate to="/dashboard" replace />;
-  }
-
   return (
-    <div className="Signup__root">
-      <Navbar />
+    <Wrapper hassidebar={false}>
       <div className="Signup__formContainer d-flex flex-col">
         <Typography variant="h5" className="Typography--primary mt-1 mb-2" align="center" size="md">
           Signup to get started
@@ -143,8 +137,8 @@ const Signup = () => {
           }}
         </Formik>
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
-export default Signup;
+export default withAuthRoute(Signup);
