@@ -1,8 +1,10 @@
 .Sidebar__root {
   width: 18rem;
-  height: calc(100vh - 5rem);
+  height: calc(100vh - 4rem);
   position: sticky;
-  top: 0;
+  top: 4rem;
+  z-index: 2;
+  background-color: var(--color-white);
 }
 .Sidebar__link {
   padding: 1.15rem 1rem;
@@ -22,21 +24,15 @@
   font-size: 1.5rem;
 }
 
-.Sidebar__drawer {
-  position: absolute;
-  top: 0;
-  background-color: var(--color-white);
-  width: 72%;
-  height: 100%;
-  color: var(--color-primary);
-  z-index: 2;
+@media screen and (max-width: 768px) {
+  .Sidebar__root {
+    position: fixed;
+    transform: translateX(-150%);
+    transition: transform 0.3s ease;
+  }
 }
-.Sidebar__drawer--link {
-  padding: 1rem 1.7rem;
-  color: var(--color-primary);
-  font-weight: bold;
-}
-.Sidebar__drawer--link:hover {
-  color: var(--color-text-white);
-  background-color: var(--color-primary);
+
+.Sidebar--slidein {
+  transform: translateX(0);
+  transition: transform 0.3s ease;
 }
