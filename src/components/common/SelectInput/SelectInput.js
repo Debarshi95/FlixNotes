@@ -1,37 +1,44 @@
 import CreatableSelect from 'react-select/creatable';
+import Select from 'react-select';
 import { selectInputStyles } from 'styles/defaultStyles';
 
-const SelectInput = ({ onCreate, userId, onClick, options, ...props }) => {
-  const styles = selectInputStyles({ ...props });
+const selectVariants = {
+  creatable: CreatableSelect,
+  primary: Select,
+};
 
-  const handleCreateLabel = async (value) => {
-    if (onCreate) {
-      onCreate(value);
+const SelectInput = ({ onSelectCreate, variant, onSelectClick, options, ...props }) => {
+  const styles = selectInputStyles({ ...props });
+  const Component = selectVariants[variant];
+
+  const handleOnCreate = async (value) => {
+    if (onSelectCreate) {
+      onSelectCreate(value);
     }
   };
 
   const handleOnChange = ({ value }) => {
-    if (onClick) {
-      onClick(value);
+    if (onSelectClick) {
+      onSelectClick(value);
     }
   };
 
   return (
-    <div>
-      <CreatableSelect
-        styles={styles}
-        placeholder="Label"
-        options={options}
-        onCreateOption={handleCreateLabel}
-        onChange={handleOnChange}
-      />
-    </div>
+    <Component
+      styles={styles}
+      options={options}
+      onCreateOption={handleOnCreate}
+      onChange={handleOnChange}
+      {...props}
+    />
   );
 };
 
 SelectInput.defaultProps = {
-  onCreate: null,
-  onClick: null,
+  onSelectCreate: null,
+  onSelectClick: null,
   options: [],
+  variant: 'primary',
+  selectStyles: {},
 };
 export default SelectInput;

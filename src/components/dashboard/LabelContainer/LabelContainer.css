@@ -3,26 +3,6 @@
   border-radius: 0 0 4px 4px;
   display: flex;
   flex-wrap: wrap;
-  font-size: 1rem;
-}
-.LabelContainer__root .close--icon {
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  margin-left: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: var(--color-text-white);
-  background-color: var(--color-text-dark);
-}
-.LabelItem {
-  background-color: var(--color-primary-disabled);
-  border-radius: 16px;
-  /* margin: 3px 3px; */
-  padding: 4px 1rem;
-}
-.LabelItem:nth-child(1) {
-  /* margin-left: 6px; */
+  font-size: 12px;
+  padding: 2px 14px;
 }
