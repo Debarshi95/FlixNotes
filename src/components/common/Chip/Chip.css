@@ -1,0 +1,49 @@
+.Chip__root {
+  background-color: transparent;
+  border-radius: 2rem;
+  margin: 3px;
+  padding: 2px 12px;
+  border: 1.5px solid var(--color-box-shadow);
+  display: flex;
+  align-items: center;
+  min-width: 6rem;
+}
+
+.Chip--Text {
+  margin-right: 4px;
+  max-width: 6rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.Chip__icon {
+  font-size: 1rem;
+  padding: 2px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-text-dark);
+  background-color: transparent;
+}
+
+.Chip__icon:hover {
+  transform: scale(1.25);
+}
+
+.Chip--primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-white);
+}
+
+.Chip--text {
+  background-color: transparent;
+  color: var(--color-text-dark);
+  border: none;
+  font-weight: bold;
+}
+.Chip--outlined {
+  border: 1.5px solid var(--color-box-shadow);
+}

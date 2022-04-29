@@ -73,6 +73,7 @@
 }
 .Typography--center {
   text-align: center;
+  width: 100%;
 }
 .Typography--start {
   text-align: start;

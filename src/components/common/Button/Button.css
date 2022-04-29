@@ -40,6 +40,10 @@
   background-color: var(--color-dark-hover);
   color: var(--color-text-white);
 }
+.Button--chip {
+  min-width: 2rem;
+  background-color: yellow;
+}
 .Button__text--capitalize {
   text-transform: uppercase;
 }
