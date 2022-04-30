@@ -1,5 +1,4 @@
-import NotFound from 'components/common/NotFound/NotFound';
-import PrivateRoute from 'components/common/PrivateRoute/PrivateRoute';
+import { NotFound, PrivateRoute } from 'components';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from './auth/Signin/Signin';

@@ -39,7 +39,15 @@ export const createUser = ({ username, uid, email }) => {
   });
 };
 
-export const createNote = ({ userId, labels, isPinned, cardColor, status, content = '' }) => {
+export const createNote = ({
+  userId,
+  labels,
+  isPinned,
+  cardColor,
+  status,
+  priority = 'Low',
+  content = '',
+}) => {
   return addDoc(collection(firestore, 'notes'), {
     content,
     userId,
@@ -47,6 +55,7 @@ export const createNote = ({ userId, labels, isPinned, cardColor, status, conten
     cardColor,
     status,
     isPinned,
+    priority,
     createdAt: serverTimestamp(),
   });
 };

@@ -18,11 +18,13 @@ const colors = {
   colorBoxShadow: 'rgba(0, 0, 0, 0.16)',
 };
 
-const selectInputStyles = () => ({
+const selectInputStyles = ({ selectStyles }) => ({
   container: (provided) => ({
     ...provided,
     fontSize: '0.85rem',
     color: colors.colorTextDark,
+    width: selectStyles.menuWidth ? `${selectStyles.menuWidth}px` : '110px',
+    ...selectStyles,
   }),
   option: (provided) => ({
     ...provided,
@@ -32,12 +34,23 @@ const selectInputStyles = () => ({
   }),
   control: (provided) => ({
     ...provided,
-    borderColor: 'none',
-    width: 110,
+    borderColor: colors.colorBoxShadow,
+    width: 'inherit',
+    minHeight: 34,
     boxShadow: 'none',
+    backgroundColor: 'inherit',
+    color: colors.colorTextDark,
     '&:hover': {
-      borderColor: 'none',
+      borderColor: colors.colorBoxShadow,
     },
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    padding: '0 4px',
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    padding: '4px',
   }),
   menu: (provided) => ({
     ...provided,
@@ -46,7 +59,7 @@ const selectInputStyles = () => ({
   }),
   menuList: (provided) => ({
     ...provided,
-    padding: 0,
+    padding: '4px 6px',
   }),
 });
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useReducer, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import ToolTip from 'react-tooltip';
@@ -52,7 +51,6 @@ const NotePad = () => {
   const { user } = useAuth();
   const { handleAddNote } = useNote();
 
-  console.log({ content, cardColor, status, isPinned, labels, priority });
   useEffect(() => {
     let unsub;
     const fetchLabels = async () => {
