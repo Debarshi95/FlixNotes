@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { auth, onAuthStateChanged } from 'Firebase';
-import NoteProvider from 'providers/NoteProvider/NoteProvider';
 
 const AuthContext = createContext();
 
@@ -19,11 +18,7 @@ const AuthProvider = ({ children }) => {
 
   const value = useMemo(() => ({ user: authUser, authenticated: authUser !== null }), [authUser]);
 
-  return (
-    <AuthContext.Provider value={value}>
-      <NoteProvider user={authUser}>{children}</NoteProvider>
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children(authUser)}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);
