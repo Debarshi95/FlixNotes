@@ -1,57 +1,182 @@
-/* eslint-disable react/no-danger */
-import { Typography, LabelContainer } from 'components';
+import ToolTip from 'react-tooltip';
+import toast from 'react-hot-toast';
 import sanitizeHtml from 'sanitize-html';
-import { FaTrash } from 'react-icons/fa';
-import { BsArchiveFill, BsFillPinFill, BsPin } from 'react-icons/bs';
 import { useCallback, useMemo, useState } from 'react';
-import { useNote } from 'providers';
+import { TagContainer, SelectInput, Button } from 'components';
+import { BsArchive, BsFillPinFill, BsPalette, BsPin, BsThreeDotsVertical } from 'react-icons/bs';
+import { updateNote } from 'services/firebaseApi';
+import { useTagContext } from 'providers';
 import { debounce } from 'utils/helper-funcs';
+import { CirclePicker } from 'react-color';
+import { selectCommonStyles } from 'styles/defaultStyles';
+import {
+  DROPDOWN_COLORS,
+  DROPDOWN_TAGS,
+  DROPDOWN_OPTIONS,
+  DROPDOWN_PRIORITY,
+  priorityOptions,
+  selectMoreOptions,
+} from 'constants/dropdownOptions';
 import './NoteCard.css';
 
 const NoteCard = ({ note }) => {
   const [isNoteEditable, setIsNoteEditable] = useState(false);
+  const [dropdownObj, setDropdownObj] = useState({});
+  const { tags, createTag } = useTagContext();
 
-  const { handleNoteUpdate } = useNote();
+  const handleDropdownChange = useCallback((type) => {
+    setDropdownObj((prevObj) => {
+      if (prevObj[type]) {
+        const duplicateObj = { ...prevObj };
+        delete duplicateObj[type];
+        return { ...duplicateObj };
+      }
+      const obj = {};
+      obj[type] = true;
+      return { ...obj };
+    });
+  }, []);
 
-  const handleUpdateNote = useCallback(
-    async ({ type, payload }) => {
-      handleNoteUpdate({ noteId: note.id, type, payload });
+  const handleNoteUpdate = useCallback(
+    async (payload) => {
+      const noteObj = { ...note, ...payload };
+      try {
+        await updateNote({ ...noteObj });
+      } catch (error) {
+        toast.error("Error! Couldn't update note");
+      }
     },
-    [handleNoteUpdate, note.id]
+    [note]
   );
 
-  const handleLabelDelete = async (selectedLabel) => {
-    const filteredLabels = note.labels.filter((label) => label !== selectedLabel);
-    handleNoteUpdate({ type: 'UPDATE_LABELS', noteId: note.id, payload: filteredLabels });
+  const handleTagFilter = async (selectedTag) => {
+    const filteredTags = note.tags.filter((tag) => tag !== selectedTag);
+    handleNoteUpdate({ tags: filteredTags });
   };
 
-  const handleContentChange = useMemo(() => debounce(handleUpdateNote, 700), [handleUpdateNote]);
+  const handleSelectTag = useCallback(
+    (value) => {
+      const tag = note?.tags?.find((text) => text === value);
+      if (!tag) {
+        handleNoteUpdate({ tags: [value, ...note.tags] });
+      }
+    },
+    [handleNoteUpdate, note.tags]
+  );
+
+  const handleCreateTag = async (value) => {
+    try {
+      const res = await createTag(value);
+      if (res) {
+        setDropdownObj({});
+        handleNoteUpdate({ tags: [value, ...note.tags] });
+      }
+    } catch (error) {
+      toast.error("Couldn't create tag. Some error occurred!!");
+    }
+  };
+  const handleContentChange = useMemo(() => debounce(handleNoteUpdate, 700), [handleNoteUpdate]);
 
   return (
     <div className="NoteCard__root" style={{ backgroundColor: note?.cardColor }}>
-      <Typography variant="div" className="NoteCard__header d-flex content-between">
+      <article className="d-flex items-center content-between px-1 py-half">
         <div className="d-flex">
-          <Typography
-            variant="h"
-            onClick={() => handleUpdateNote({ type: 'UPDATE_PINNED' })}
-            align="end"
-            className="mr-1"
+          <Button
+            component="div"
+            variant="icon"
+            onClick={() => handleNoteUpdate({ isPinned: !note.isPinned })}
+            className="Button--icon-primary"
+            data-tip={note.isPinned ? 'Unpin' : 'Pin'}
           >
-            {note.isPinned ? <BsFillPinFill cursor="pointer" /> : <BsPin cursor="pointer" />}
-          </Typography>
+            {note.isPinned ? <BsFillPinFill /> : <BsPin />}
+            <ToolTip place="bottom" />
+          </Button>
 
-          <BsArchiveFill
-            className="d-block text-12 mr-1"
-            cursor="pointer"
-            onClick={() => handleUpdateNote({ type: 'UPDATE_STATUS', payload: 'ARCHIVE' })}
-          />
+          <Button
+            component="div"
+            variant="icon"
+            data-tip="Background options"
+            onClick={() => handleDropdownChange(DROPDOWN_COLORS)}
+          >
+            <ToolTip place="bottom" />
+            <BsPalette />
+          </Button>
+          <div className="popover_container">
+            {dropdownObj[DROPDOWN_COLORS] && (
+              <CirclePicker
+                className="NotePad__colorPicker"
+                onChange={(color) => {
+                  handleDropdownChange(DROPDOWN_COLORS);
+                  handleContentChange({ cardColor: color.hex });
+                }}
+              />
+            )}
+          </div>
+          <Button
+            component="div"
+            variant="icon"
+            data-tip="Archive"
+            onClick={() => handleContentChange({ status: 'ARCHIVE' })}
+          >
+            <BsArchive />
+            <ToolTip place="bottom" />
+          </Button>
         </div>
+        <div className="relative">
+          <Button
+            component="div"
+            variant="icon"
+            data-tip="More options"
+            onClick={() => handleDropdownChange(DROPDOWN_OPTIONS)}
+          >
+            <BsThreeDotsVertical />
+            <ToolTip place="bottom" />
+          </Button>
 
-        <FaTrash
-          cursor="pointer"
-          onClick={() => handleUpdateNote({ type: 'UPDATE_STATUS', payload: 'TRASH' })}
-        />
-      </Typography>
+          {dropdownObj[DROPDOWN_OPTIONS] && (
+            <SelectInput
+              onSelectClick={(value) => handleDropdownChange(value)}
+              options={selectMoreOptions}
+              variant="primary"
+              defaultMenuIsOpen
+              placeholder={false}
+              isSearchable={false}
+              components={{ Control: () => {} }}
+              selectStyles={{ ...selectCommonStyles, left: '-94px' }}
+            />
+          )}
+
+          {dropdownObj[DROPDOWN_TAGS] && (
+            <SelectInput
+              onSelectClick={(value) => {
+                handleSelectTag(value);
+                handleDropdownChange(value);
+              }}
+              onSelectCreate={handleCreateTag}
+              options={tags}
+              variant="creatable"
+              placeholder="Create a label"
+              defaultMenuIsOpen
+              selectStyles={{ ...selectCommonStyles, left: '-94px' }}
+            />
+          )}
+
+          {dropdownObj[DROPDOWN_PRIORITY] && (
+            <SelectInput
+              onSelectClick={(value) => {
+                handleContentChange({ priority: value });
+                handleDropdownChange(DROPDOWN_OPTIONS);
+              }}
+              options={priorityOptions}
+              variant="primary"
+              placeholder={false}
+              defaultMenuIsOpen
+              components={{ Control: () => {} }}
+              selectStyles={{ ...selectCommonStyles, left: '-94px' }}
+            />
+          )}
+        </div>
+      </article>
       <div
         dangerouslySetInnerHTML={{ __html: sanitizeHtml(note.content) }}
         className="NoteCard__content"
@@ -59,7 +184,7 @@ const NoteCard = ({ note }) => {
         onKeyUp={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          handleContentChange({ type: 'UPDATE_CONTENT', payload: e.target.textContent });
+          handleContentChange({ content: e.target.textContent });
         }}
         onClick={(e) => {
           e.preventDefault();
@@ -69,9 +194,7 @@ const NoteCard = ({ note }) => {
         aria-hidden
       />
 
-      {note.labels.length > 0 && (
-        <LabelContainer labels={note.labels} handleLabelDelete={handleLabelDelete} />
-      )}
+      {note?.tags?.length ? <TagContainer tags={note.tags} onDelete={handleTagFilter} /> : null}
     </div>
   );
 };
