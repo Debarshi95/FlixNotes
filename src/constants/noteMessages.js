@@ -3,7 +3,7 @@ export const noteActions = Object.freeze({
   SET_STYLE: 'SET_STYLE',
   SET_STATUS: 'SET_STATUS',
   SET_PINNED: 'SET_PINNED',
-  SET_LABEL: 'SET_LABEL',
+  SET_TAGS: 'SET_TAGS',
   SET_PRIORITY: 'SET_PRIORITY',
   RESET: 'RESET',
 });

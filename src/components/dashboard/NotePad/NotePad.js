@@ -1,18 +1,24 @@
-import { useState, useReducer, useEffect, useCallback } from 'react';
+import TextEditor from 'react-quill';
 import toast from 'react-hot-toast';
 import ToolTip from 'react-tooltip';
+import { useState, useReducer, useCallback } from 'react';
 import { CirclePicker } from 'react-color';
-import TextEditor from 'react-quill';
 import { BsPalette, BsFillPinFill, BsPin, BsArchive, BsThreeDotsVertical } from 'react-icons/bs';
-import { toCapitalize } from 'utils/helper-funcs';
-import { useNote, useAuth } from 'providers';
-import { createLabel } from 'services/firebaseApi';
-import { Button, LabelContainer, SelectInput, Chip } from 'components';
+
+import { useNote, useTagContext } from 'providers';
+import { Button, TagContainer, SelectInput, Chip } from 'components';
 import { createNoteReducer } from 'reducers';
 import { noteStatus, noteActions } from 'constants/noteMessages';
-import { priorityOptions, selectMoreOptions } from 'constants/dropdownOptions';
-import { firestore, query, collection, onSnapshot, orderBy, where } from 'Firebase';
+import { selectCommonStyles } from 'styles/defaultStyles';
 import { toolbarModules } from 'constants/editorSettings';
+import {
+  DROPDOWN_COLORS,
+  DROPDOWN_TAGS,
+  DROPDOWN_OPTIONS,
+  DROPDOWN_PRIORITY,
+  priorityOptions,
+  selectMoreOptions,
+} from 'constants/dropdownOptions';
 import 'react-quill/dist/quill.snow.css';
 import './NotePad.css';
 
@@ -22,66 +28,18 @@ const initialState = {
   status: noteStatus.ACTIVE,
   isPinned: false,
   priority: 'Low',
-  labels: [],
-};
-
-const DROPDOWN_COLORS = 'Colors';
-const DROPDOWN_OPTIONS = 'Options';
-const DROPDOWN_LABELS = 'Labels';
-const DROPDOWN_PRIORITY = 'Priority';
-
-const selectCommonStyles = {
-  menuWidth: 140,
-  position: 'absolute',
-  top: '26px',
-  left: '10px',
-  background: '#fff',
-  borderRadius: '4px',
-  zIndex: 1,
+  tags: [],
 };
 
 const NotePad = () => {
   const [dropdownObj, setDropdownObj] = useState({});
-  const [labelOptions, setLabelOptions] = useState([]);
-  const [{ content, cardColor, status, isPinned, labels, priority }, dispatch] = useReducer(
+  const [{ content, cardColor, status, isPinned, tags, priority }, dispatch] = useReducer(
     createNoteReducer,
     initialState
   );
 
-  const { user } = useAuth();
   const { handleAddNote } = useNote();
-
-  useEffect(() => {
-    let unsub;
-    const fetchLabels = async () => {
-      try {
-        const queryRef = query(
-          collection(firestore, 'labels'),
-          where('userId', '==', user.uid),
-          orderBy('createdAt', 'desc')
-        );
-        unsub = onSnapshot(queryRef, (snapshot) => {
-          const docs = [];
-          snapshot.docs.forEach((doc) => {
-            docs.push({ id: doc.id, ...doc.data() });
-          });
-          setLabelOptions([...docs]);
-        });
-      } catch (error) {
-        toast.error("Oops!! Couldn't get Labels");
-      }
-    };
-
-    if (user?.uid) {
-      fetchLabels();
-    }
-
-    return () => {
-      if (typeof unsub === 'function') {
-        unsub();
-      }
-    };
-  }, [user?.uid]);
+  const { tags: dropdownTags = [], createTag } = useTagContext();
 
   const handleDropdownChange = useCallback((type) => {
     setDropdownObj((prevObj) => {
@@ -96,12 +54,12 @@ const NotePad = () => {
     });
   }, []);
 
-  const handleLabelDelete = useCallback(
-    (text) => {
-      const filteredLabels = labels?.filter((labelText) => labelText !== text);
-      dispatch({ type: noteActions.SET_LABEL, payload: [...filteredLabels] });
+  const handleTagFilter = useCallback(
+    (value) => {
+      const filteredTags = tags?.filter((tagName) => tagName !== value);
+      dispatch({ type: noteActions.SET_TAGS, payload: [...filteredTags] });
     },
-    [labels]
+    [tags]
   );
 
   const handleCreateNote = async (e) => {
@@ -110,7 +68,7 @@ const NotePad = () => {
       toast.error('Note body cannot be empty');
       return;
     }
-    const res = await handleAddNote({ content, cardColor, status, isPinned, labels });
+    const res = await handleAddNote({ content, cardColor, status, isPinned, tags });
     if (res) {
       setDropdownObj({});
       dispatch({ type: noteActions.RESET, payload: initialState });
@@ -118,33 +76,27 @@ const NotePad = () => {
     }
   };
 
-  const handleLabelClick = useCallback(
+  const handleSelectTag = useCallback(
     (value) => {
-      const labelExits = labels?.find((labelText) => labelText === value);
-      if (!labelExits) {
-        dispatch({ type: noteActions.SET_LABEL, payload: [...labels, value] });
+      const tag = tags?.find((text) => text === value);
+      if (!tag) {
+        dispatch({ type: noteActions.SET_TAGS, payload: [value, ...tags] });
       }
     },
-    [labels]
+    [tags]
   );
 
-  const handleCreateLabel = useCallback(
-    async (value) => {
-      try {
-        const res = await createLabel({
-          userId: user?.uid,
-          label: toCapitalize(value),
-          value: value.toLowerCase(),
-        });
-        if (res?.id) {
-          handleLabelClick(value);
-        }
-      } catch (error) {
-        toast.error("Couldn't create label. Some error occurred!!");
+  const handleCreateTag = async (value) => {
+    try {
+      const res = await createTag(value);
+      if (res) {
+        setDropdownObj({});
+        dispatch({ type: noteActions.SET_TAGS, payload: [value, ...tags] });
       }
-    },
-    [handleLabelClick, user?.uid]
-  );
+    } catch (error) {
+      toast.error("Couldn't create tag. Some error occurred!!");
+    }
+  };
 
   return (
     <article className="NotePad__root" style={{ backgroundColor: cardColor }}>
@@ -162,7 +114,7 @@ const NotePad = () => {
           {priority}
         </Chip>
 
-        <LabelContainer labels={labels} handleLabelDelete={handleLabelDelete} />
+        <TagContainer tags={tags} onDelete={handleTagFilter} />
 
         <section className="NotePad__footer">
           <div className="d-flex items-center content-between">
@@ -237,16 +189,16 @@ const NotePad = () => {
                 />
               )}
 
-              {dropdownObj[DROPDOWN_LABELS] && (
+              {dropdownObj[DROPDOWN_TAGS] && (
                 <SelectInput
                   onSelectClick={(value) => {
-                    handleLabelClick(value);
+                    handleSelectTag(value);
                     handleDropdownChange(value);
                   }}
-                  onSelectCreate={handleCreateLabel}
-                  options={labelOptions}
+                  onSelectCreate={handleCreateTag}
+                  options={dropdownTags}
                   variant="creatable"
-                  placeholder="Create a label"
+                  placeholder="Create a tag"
                   defaultMenuIsOpen
                   selectStyles={selectCommonStyles}
                 />
