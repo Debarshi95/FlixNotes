@@ -11,7 +11,7 @@ const Dashboard = () => {
     <Wrapper>
       <section className="flex-1 p-1">
         <NotePad />
-        <article>
+        <article className="d-flex flex-wrap content-evenly">
           {filteredNotes?.map((note) => (
             <NoteCard key={note.id} note={note} />
           ))}

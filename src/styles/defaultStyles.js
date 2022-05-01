@@ -62,5 +62,14 @@ const selectInputStyles = ({ selectStyles }) => ({
     padding: '4px 6px',
   }),
 });
+const selectCommonStyles = {
+  menuWidth: 140,
+  position: 'absolute',
+  top: '26px',
+  left: '10px',
+  background: '#fff',
+  borderRadius: '4px',
+  zIndex: 1,
+};
 
-export { circlePopperStyles, circlePopperColors, selectInputStyles, colors };
+export { circlePopperStyles, circlePopperColors, selectCommonStyles, selectInputStyles, colors };

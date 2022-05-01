@@ -48,6 +48,9 @@ body {
 .flex-1 {
   flex: 1;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 
 @media screen and (max-width: 600px) {
   .navlink--primary-contained {
