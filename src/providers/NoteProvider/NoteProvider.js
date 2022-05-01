@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { createNote, getDocById, updateNote } from 'services/firebaseApi';
-import { noteActions } from 'constants/noteMessages';
+import { createNote } from 'services/firebaseApi';
+
 import { firestore, collection, query, where, onSnapshot, orderBy } from 'Firebase';
 
 const NoteContext = createContext();
@@ -34,7 +33,7 @@ const NoteProvider = ({ children, user }) => {
       }
     };
   }, [user]);
-  console.log({ notes });
+
   const handleAddNote = useCallback(
     async (noteData) => {
       try {

@@ -1,12 +1,11 @@
+import cn from 'classnames';
 import { memo } from 'react';
 import { FaArchive, FaTrash, FaHome, FaSignOutAlt } from 'react-icons/fa';
-import cn from 'classnames';
 import { MdLabel } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
-import Button from 'components/common/Button/Button';
-import Typography from 'components/common/Typography/Typography';
+import { Button, Typography } from 'components';
 import { signout } from 'services/firebaseApi';
-import { useSideDrawer } from 'providers/SideDrawerProvider/SideDrawerProvider';
+import { useSideDrawer } from 'providers';
 import './Sidebar.css';
 
 const linksProps = [

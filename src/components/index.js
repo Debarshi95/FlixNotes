@@ -5,7 +5,7 @@ export { default as Navbar } from './common/Navbar/Navbar';
 export { default as Input } from './auth/Input/Input';
 export { default as Sidebar } from './dashboard/Sidebar/Sidebar';
 export { default as NotePad } from './dashboard/NotePad/NotePad';
-export { default as LabelContainer } from './dashboard/LabelContainer/LabelContainer';
+export { default as TagContainer } from './dashboard/TagContainer/TagContainer';
 export { default as ErrorBoundary } from './common/ErrorBoundary/ErrorBoundary';
 export { default as NotFound } from './common/NotFound/NotFound';
 export { default as PrivateRoute } from './common/PrivateRoute/PrivateRoute';

@@ -12,8 +12,8 @@ const createNoteReducer = (state, action) => {
       return { ...state, isPinned: action.payload };
     case noteActions.SET_PRIORITY:
       return { ...state, priority: action.payload };
-    case noteActions.SET_LABEL:
-      return { ...state, labels: [...action.payload] };
+    case noteActions.SET_TAGS:
+      return { ...state, tags: [...action.payload] };
     case noteActions.RESET:
       return { ...state, ...action.payload };
     default:
