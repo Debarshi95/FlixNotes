@@ -37,7 +37,7 @@ const NotePad = () => {
     createNoteReducer,
     initialState
   );
-  console.log({ content });
+
   const { handleAddNote } = useNote();
   const { tags: dropdownTags = [], createTag } = useTagContext();
 
