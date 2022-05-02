@@ -178,7 +178,13 @@ const NoteCard = ({ note }) => {
         </div>
       </article>
       <div
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(note.content) }}
+        dangerouslySetInnerHTML={{
+          __html: sanitizeHtml(note.content, {
+            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+            allowedAttributes: { img: ['src'] },
+            allowedSchemes: ['data', 'http', 'https'],
+          }),
+        }}
         className="NoteCard__content"
         contentEditable={isNoteEditable}
         onKeyUp={(e) => {
