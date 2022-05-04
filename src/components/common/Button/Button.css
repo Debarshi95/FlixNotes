@@ -31,6 +31,7 @@
   margin-right: 4px;
   color: var(--color-text-icon);
 }
+
 .Button--icon-primary {
   font-size: 1.15rem;
   font-weight: bold;
@@ -40,13 +41,15 @@
   background-color: var(--color-dark-hover);
   color: var(--color-text-white);
 }
+
 .Button--chip {
   min-width: 2rem;
-  background-color: yellow;
 }
+
 .Button__text--capitalize {
   text-transform: uppercase;
 }
+
 .Button--disabled {
   background-color: var(--color-primary-disabled);
   cursor: initial;

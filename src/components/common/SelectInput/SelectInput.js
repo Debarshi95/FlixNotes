@@ -11,7 +11,7 @@ const SelectInput = ({ onSelectCreate, variant, onSelectClick, options, ...props
   const styles = selectInputStyles({ ...props });
   const Component = selectVariants[variant];
 
-  const handleOnCreate = async (value) => {
+  const handleOnCreate = (value) => {
     if (onSelectCreate) {
       onSelectCreate(value);
     }
