@@ -8,7 +8,7 @@ const NoteContext = createContext();
 
 const NoteProvider = ({ children, user }) => {
   const [notes, setNotes] = useState(null);
-
+  console.log({ notes });
   useEffect(() => {
     let unsub;
     if (user) {
