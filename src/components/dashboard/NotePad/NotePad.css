@@ -78,3 +78,9 @@
     max-width: 92vw;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .NotePad__footer {
+    padding: 0;
+  }
+}
