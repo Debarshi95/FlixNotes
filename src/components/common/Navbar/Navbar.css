@@ -21,7 +21,9 @@
   display: flex;
   align-items: center;
 }
-
+.Navbar__text {
+  display: initial;
+}
 @media screen and (max-width: 768px) {
   .Navbar__root {
     margin: 0;
@@ -37,5 +39,8 @@
     font-size: 1.5rem;
     display: block;
     text-align: center;
+  }
+  .Navbar__text {
+    display: none;
   }
 }

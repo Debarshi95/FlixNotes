@@ -44,4 +44,7 @@
   .SearchIcon {
     font-size: 1.7rem;
   }
+  .Searchbar__button {
+    width: 100%;
+  }
 }

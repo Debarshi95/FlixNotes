@@ -38,7 +38,7 @@ const Navbar = () => {
                   onClick={signout}
                   size="xs"
                 >
-                  <span className="mr-1">Signout</span>
+                  <span className="Navbar__text mr-1">Signout</span>
                   <FaSignOutAlt />
                 </Typography>
               </Button>
