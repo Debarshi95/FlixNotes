@@ -54,3 +54,10 @@
   background-color: var(--color-primary-disabled);
   cursor: initial;
 }
+
+@media screen and (max-width: 600px) {
+  .Button--icon {
+    font-size: 1rem;
+    padding: 3px;
+  }
+}
