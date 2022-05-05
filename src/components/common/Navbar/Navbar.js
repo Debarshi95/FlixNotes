@@ -10,39 +10,40 @@ const Navbar = () => {
 
   return (
     <div className="Navbar__root">
-      <nav className="d-flex content-between mx-auto items-center">
+      <nav className="mx-auto items-center">
         <NavLink to="/" className="Navlink--primary text-14 text-bold">
           FlixNote
         </NavLink>
 
-        <Searchbar />
-
-        <div className="d-flex content-between items-center">
-          {!user ? (
-            <>
-              <NavLink to="/signin" className="Typography--uppercase navlink text-bold">
-                Signin
-              </NavLink>
-              <NavLink
-                to="/signup"
-                className="Typography--uppercase navlink navlink--primary-contained text-bold"
-              >
-                Signup
-              </NavLink>
-            </>
-          ) : (
-            <Button component="div">
-              <Typography
-                variant="h6"
-                className="d-flex content-evenly items-center"
-                onClick={signout}
-                size="xs"
-              >
-                <span className="mr-1">Signout</span>
-                <FaSignOutAlt />
-              </Typography>
-            </Button>
-          )}
+        <div className="NavLink__wrapper">
+          <Searchbar />
+          <div className="d-flex content-between items-center">
+            {!user ? (
+              <>
+                <NavLink to="/signin" className="Typography--uppercase navlink text-bold">
+                  Signin
+                </NavLink>
+                <NavLink
+                  to="/signup"
+                  className="Typography--uppercase navlink navlink--primary-contained text-bold"
+                >
+                  Signup
+                </NavLink>
+              </>
+            ) : (
+              <Button component="div">
+                <Typography
+                  variant="h6"
+                  className="d-flex content-evenly items-center"
+                  onClick={signout}
+                  size="xs"
+                >
+                  <span className="mr-1">Signout</span>
+                  <FaSignOutAlt />
+                </Typography>
+              </Button>
+            )}
+          </div>
         </div>
       </nav>
     </div>

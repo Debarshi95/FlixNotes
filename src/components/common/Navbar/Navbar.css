@@ -8,25 +8,34 @@
   margin: 0 2rem;
 }
 
-.Navbar__root > nav {
-  max-width: 85%;
-  margin: 0 auto;
+.Navbar__root nav {
+  max-width: 95%;
+  display: flex;
+  justify-content: center;
 }
 .Navlink--primary {
   color: var(--color-primary);
   font-size: 2rem;
 }
+.NavLink__wrapper {
+  display: flex;
+  align-items: center;
+}
 
 @media screen and (max-width: 768px) {
   .Navbar__root {
     margin: 0;
+    padding: 1rem;
   }
   .Navbar__root > nav {
     max-width: 100%;
     margin: 0 auto;
+    display: initial;
   }
   .Navlink--primary {
     color: var(--color-primary);
     font-size: 1.5rem;
+    display: block;
+    text-align: center;
   }
 }
