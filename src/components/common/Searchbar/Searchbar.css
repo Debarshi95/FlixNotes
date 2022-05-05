@@ -1,10 +1,9 @@
 .Searchbar__root {
   background-color: var(--color-white);
-  width: 70%;
   display: flex;
   border-radius: 6px;
   padding: 4px 14px;
-  margin: 0 auto;
+  margin: 0 3rem 0 3rem;
 }
 
 .Searchbar__root > input {
@@ -35,7 +34,14 @@
 }
 
 @media screen and (max-width: 768px) {
+  .Searchbar__root {
+    margin: 0;
+    padding: 2px 12px;
+  }
+  .Searchbar__root > input::placeholder {
+    font-size: initial;
+  }
   .SearchIcon {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 }

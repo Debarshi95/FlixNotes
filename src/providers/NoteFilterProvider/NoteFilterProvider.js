@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 import { filterNoteReducer } from 'reducers';
 
@@ -15,12 +16,15 @@ const NoteFilterProvider = ({ children }) => {
   const [filteredState, dispatch] = useReducer(filterNoteReducer, initialState);
 
   // eslint-disable-next-line default-param-last
-  const getSortedNotes = (noteList = [], sortBy) => {
+  const getSortedNotes = (noteList = [], sortBy, search = '') => {
     if (sortBy && sortBy === 'CREATED_AT') {
       return noteList.filter((note) => note.createdAt);
     }
     if (sortBy) {
       return noteList.filter((note) => note.priority === sortBy);
+    }
+    if (search) {
+      return noteList.filter((note) => sanitizeHtml(note.content)?.includes(search));
     }
     return noteList;
   };

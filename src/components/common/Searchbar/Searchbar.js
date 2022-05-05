@@ -52,18 +52,21 @@ const Searchbar = () => {
 
     return null;
   };
+  const handleSearch = (e) => {
+    dispatch({ type: 'SEARCH', payload: e.target.value });
+  };
 
   return (
     <div className="Searchbar__root">
       <Button variant="icon" component="div" className="SearchIcon">
         <FiSearch />
       </Button>
-      <input type="text" placeholder="Search" />
+      <input type="text" placeholder="Search" onChange={handleSearch} />
       <div>
         <Button
           variant="text"
           className="Searchbar__button"
-          onClick={() => setSelect(DROPDOWN_TAGS)}
+          onClick={() => setSelect(select === DROPDOWN_TAGS ? null : DROPDOWN_TAGS)}
         >
           <Typography variant="p">{ref.current}</Typography>
           <IoIosArrowDown />

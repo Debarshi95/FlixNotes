@@ -6,7 +6,7 @@ const Dashboard = () => {
   const { notes } = useNote();
   const { state, getSortedNotes, getFilteredNotes } = useNoteFilterContext();
 
-  const sortedNotes = getSortedNotes(notes, state.sortBy);
+  const sortedNotes = getSortedNotes(notes, state.sortBy, state.search);
   const filteredNotes = getFilteredNotes(sortedNotes, state);
 
   return (
