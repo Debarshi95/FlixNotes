@@ -1,13 +1,15 @@
 .NotePad__root {
   width: 100%;
-  border: 1.5px solid var(--color-box-shadow);
   font-family: inherit;
   border-radius: 4px;
   position: relative;
   min-height: 10rem;
   border-radius: 4px;
-  max-width: calc(80vw - 19rem);
-  margin-bottom: 1rem;
+  max-width: 48vw;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  margin: 0 auto 1rem auto;
+  background-color: var(--color-white);
+  padding: 0.5rem;
 }
 
 .NotePad__inputContainer {
@@ -68,10 +70,10 @@
 .NotePad__footer {
   display: flex;
   justify-content: space-between;
-  padding: 1px 14px;
+  padding: 4px 14px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .NotePad__root {
     max-width: 92vw;
   }

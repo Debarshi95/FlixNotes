@@ -1,14 +1,21 @@
 import ToolTip from 'react-tooltip';
 import toast from 'react-hot-toast';
 import sanitizeHtml from 'sanitize-html';
-import { useCallback, useMemo, useState } from 'react';
-import { TagContainer, SelectInput, Button } from 'components';
-import { BsArchive, BsFillPinFill, BsPalette, BsPin, BsThreeDotsVertical } from 'react-icons/bs';
+import { memo, useCallback, useMemo, useState } from 'react';
+import { TagContainer, SelectInput, Button, Chip } from 'components';
+import {
+  BsArchive,
+  BsFillPinFill,
+  BsPalette,
+  BsPin,
+  BsThreeDotsVertical,
+  BsTrash,
+} from 'react-icons/bs';
 import { updateNote } from 'services/firebaseApi';
 import { useTagContext } from 'providers';
 import { debounce } from 'utils/helper-funcs';
 import { CirclePicker } from 'react-color';
-import { selectCommonStyles } from 'styles/defaultStyles';
+import { circleDropDownColors, selectCommonStyles } from 'styles/defaultStyles';
 import {
   DROPDOWN_COLORS,
   DROPDOWN_TAGS,
@@ -21,25 +28,17 @@ import './NoteCard.css';
 
 const NoteCard = ({ note }) => {
   const [isNoteEditable, setIsNoteEditable] = useState(false);
-  const [dropdownObj, setDropdownObj] = useState({});
+  const [dropdown, setDropdown] = useState(null);
   const { tags, createTag } = useTagContext();
 
-  const handleDropdownChange = useCallback((type) => {
-    setDropdownObj((prevObj) => {
-      if (prevObj[type]) {
-        const duplicateObj = { ...prevObj };
-        delete duplicateObj[type];
-        return { ...duplicateObj };
-      }
-      const obj = {};
-      obj[type] = true;
-      return { ...obj };
-    });
-  }, []);
+  const handleDropdownChange = (type) => {
+    setDropdown(type);
+  };
 
   const handleNoteUpdate = useCallback(
     async (payload) => {
       const noteObj = { ...note, ...payload };
+
       try {
         await updateNote({ ...noteObj });
       } catch (error) {
@@ -49,7 +48,7 @@ const NoteCard = ({ note }) => {
     [note]
   );
 
-  const handleTagFilter = async (selectedTag) => {
+  const handleTagFilter = (selectedTag) => {
     const filteredTags = note.tags.filter((tag) => tag !== selectedTag);
     handleNoteUpdate({ tags: filteredTags });
   };
@@ -68,7 +67,7 @@ const NoteCard = ({ note }) => {
     try {
       const res = await createTag(value);
       if (res) {
-        setDropdownObj({});
+        setDropdown(null);
         handleNoteUpdate({ tags: [value, ...note.tags] });
       }
     } catch (error) {
@@ -102,11 +101,12 @@ const NoteCard = ({ note }) => {
             <BsPalette />
           </Button>
           <div className="popover_container">
-            {dropdownObj[DROPDOWN_COLORS] && (
+            {dropdown === DROPDOWN_COLORS && (
               <CirclePicker
                 className="NotePad__colorPicker"
+                colors={circleDropDownColors}
                 onChange={(color) => {
-                  handleDropdownChange(DROPDOWN_COLORS);
+                  handleDropdownChange(null);
                   handleContentChange({ cardColor: color.hex });
                 }}
               />
@@ -121,6 +121,18 @@ const NoteCard = ({ note }) => {
             <BsArchive />
             <ToolTip place="bottom" />
           </Button>
+          <Button
+            component="div"
+            variant="icon"
+            data-tip="Trash"
+            onClick={() => handleContentChange({ status: 'TRASH' })}
+          >
+            <BsTrash />
+            <ToolTip place="bottom" />
+          </Button>
+          <Chip variant="outlined" className="right-0 mt-1">
+            {note?.priority}
+          </Chip>
         </div>
         <div className="relative">
           <Button
@@ -133,45 +145,45 @@ const NoteCard = ({ note }) => {
             <ToolTip place="bottom" />
           </Button>
 
-          {dropdownObj[DROPDOWN_OPTIONS] && (
+          {dropdown === DROPDOWN_OPTIONS && (
             <SelectInput
-              onSelectClick={(value) => handleDropdownChange(value)}
+              onSelectClick={({ value }) => handleDropdownChange(value)}
               options={selectMoreOptions}
               variant="primary"
               defaultMenuIsOpen
               placeholder={false}
               isSearchable={false}
-              components={{ Control: () => {} }}
+              components={{ Control: () => null }}
               selectStyles={{ ...selectCommonStyles, left: '-94px' }}
             />
           )}
 
-          {dropdownObj[DROPDOWN_TAGS] && (
+          {dropdown === DROPDOWN_TAGS && (
             <SelectInput
-              onSelectClick={(value) => {
+              onSelectClick={({ value }) => {
                 handleSelectTag(value);
-                handleDropdownChange(value);
+                handleDropdownChange(null);
               }}
               onSelectCreate={handleCreateTag}
               options={tags}
               variant="creatable"
-              placeholder="Create a label"
+              placeholder="Create a Tag"
               defaultMenuIsOpen
               selectStyles={{ ...selectCommonStyles, left: '-94px' }}
             />
           )}
 
-          {dropdownObj[DROPDOWN_PRIORITY] && (
+          {dropdown === DROPDOWN_PRIORITY && (
             <SelectInput
-              onSelectClick={(value) => {
+              onSelectClick={({ value }) => {
                 handleContentChange({ priority: value });
-                handleDropdownChange(DROPDOWN_OPTIONS);
+                handleDropdownChange(null);
               }}
               options={priorityOptions}
               variant="primary"
               placeholder={false}
               defaultMenuIsOpen
-              components={{ Control: () => {} }}
+              components={{ Control: () => null }}
               selectStyles={{ ...selectCommonStyles, left: '-94px' }}
             />
           )}
@@ -205,4 +217,4 @@ const NoteCard = ({ note }) => {
   );
 };
 
-export default NoteCard;
+export default memo(NoteCard);
