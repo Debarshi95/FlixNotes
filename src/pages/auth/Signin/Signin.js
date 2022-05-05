@@ -40,7 +40,7 @@ const Signin = () => {
   };
 
   return (
-    <Wrapper hassidebar={false}>
+    <Wrapper>
       <div className="Signin__formContainer d-flex flex-col">
         <Typography variant="h5" className="Typography--primary mt-1 mb-2" align="center" size="md">
           Signin to continue

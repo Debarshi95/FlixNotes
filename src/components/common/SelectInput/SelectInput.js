@@ -17,9 +17,9 @@ const SelectInput = ({ onSelectCreate, variant, onSelectClick, options, ...props
     }
   };
 
-  const handleOnChange = ({ value }) => {
+  const handleOnChange = ({ value, label }) => {
     if (onSelectClick) {
-      onSelectClick(value);
+      onSelectClick({ label, value });
     }
   };
 
