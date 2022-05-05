@@ -1,0 +1,41 @@
+.Searchbar__root {
+  background-color: var(--color-white);
+  width: 70%;
+  display: flex;
+  border-radius: 6px;
+  padding: 4px 14px;
+  margin: 0 auto;
+}
+
+.Searchbar__root > input {
+  outline: inherit;
+  border: none;
+  font-family: inherit;
+  width: 100%;
+}
+
+.Searchbar__root > input::placeholder {
+  font-size: 1.15rem;
+  font-family: inherit;
+  line-height: normal;
+}
+
+.Searchbar__button {
+  width: 8rem;
+  height: 100%;
+  background: none;
+  border: 2px solid var(--color-light-blue);
+  color: var(--color-text-icon);
+}
+.Searchbar__button:hover {
+  background-color: var(--color-main-bg);
+}
+.SearchIcon {
+  font-size: 1.75rem;
+}
+
+@media screen and (max-width: 768px) {
+  .SearchIcon {
+    font-size: 2rem;
+  }
+}
