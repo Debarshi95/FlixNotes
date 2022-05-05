@@ -13,3 +13,4 @@ export { default as Wrapper } from './common/Wrapper/Wrapper';
 export { default as NoteCard } from './dashboard/NoteCard/NoteCard';
 export { default as SelectInput } from './common/SelectInput/SelectInput';
 export { default as Chip } from './common/Chip/Chip';
+export { default as Searchbar } from './common/Searchbar/Searchbar';

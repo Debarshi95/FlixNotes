@@ -1,12 +1,12 @@
-const circlePopperStyles = {
-  position: 'absolute',
-  width: '5rem',
-  bottom: '-130px',
-  background: '#0d0d0d',
-  borderRadius: '4px',
-};
-
-const circlePopperColors = ['#F44E3B', '#FE9200', '#FCDC00', '#DBDF00', '#F5f5f5', '#cc4e59'];
+const circleDropDownColors = [
+  '#D1FAE5',
+  '#FFF',
+  '#FDF3C7',
+  '#EFF0F2',
+  '#FAF0E6',
+  '#FFF8DC',
+  '#98FB98',
+];
 
 const colors = {
   colorPrimary: '#ec6b44',
@@ -62,6 +62,7 @@ const selectInputStyles = ({ selectStyles }) => ({
     padding: '4px 6px',
   }),
 });
+
 const selectCommonStyles = {
   menuWidth: 140,
   position: 'absolute',
@@ -72,4 +73,4 @@ const selectCommonStyles = {
   zIndex: 1,
 };
 
-export { circlePopperStyles, circlePopperColors, selectCommonStyles, selectInputStyles, colors };
+export { circleDropDownColors, selectCommonStyles, selectInputStyles, colors };

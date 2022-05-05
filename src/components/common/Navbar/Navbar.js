@@ -1,35 +1,21 @@
-import { useCallback } from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { MdOutlineClear } from 'react-icons/md';
-import { useAuth } from 'providers/AuthProvider/AuthProvider';
-import { useSideDrawer } from 'providers/SideDrawerProvider/SideDrawerProvider';
+import { useAuth } from 'providers';
+import { FaSignOutAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
+import { signout } from 'services/firebaseApi';
+import { Button, Typography, Searchbar } from 'components';
 import './Navbar.css';
 
 const Navbar = () => {
   const { user } = useAuth();
-  const { showDrawer, toggleDrawer } = useSideDrawer();
-
-  const renderMenuIcon = useCallback(
-    () => (
-      <div className="Navbar__menuContainer">
-        {showDrawer ? (
-          <MdOutlineClear className="Navbar__menu" onClick={toggleDrawer} />
-        ) : (
-          <GiHamburgerMenu className="Navbar__menu" onClick={toggleDrawer} />
-        )}
-      </div>
-    ),
-    [showDrawer, toggleDrawer]
-  );
 
   return (
     <div className="Navbar__root">
       <nav className="d-flex content-between mx-auto items-center">
-        {renderMenuIcon()}
         <NavLink to="/" className="Navlink--primary text-14 text-bold">
           FlixNote
         </NavLink>
+
+        <Searchbar />
 
         <div className="d-flex content-between items-center">
           {!user ? (
@@ -45,12 +31,17 @@ const Navbar = () => {
               </NavLink>
             </>
           ) : (
-            <NavLink
-              to="/dashboard"
-              className="Typography--uppercase navlink navlink--primary-contained text-bold"
-            >
-              Dashboard
-            </NavLink>
+            <Button component="div">
+              <Typography
+                variant="h6"
+                className="d-flex content-evenly items-center"
+                onClick={signout}
+                size="xs"
+              >
+                <span className="mr-1">Signout</span>
+                <FaSignOutAlt />
+              </Typography>
+            </Button>
           )}
         </div>
       </nav>
