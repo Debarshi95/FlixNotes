@@ -60,9 +60,18 @@ export const createNote = ({
   });
 };
 
-export const updateNote = ({ id, userId, tags, isPinned, cardColor, status, content = '' }) => {
+export const updateNote = ({
+  id,
+  userId,
+  tags,
+  isPinned,
+  cardColor,
+  status,
+  priority,
+  content = '',
+}) => {
   const docRef = doc(firestore, 'notes', id);
-  return updateDoc(docRef, { userId, tags, isPinned, cardColor, status, content });
+  return updateDoc(docRef, { userId, tags, isPinned, cardColor, status, priority, content });
 };
 
 export const deleteNote = (id) => {

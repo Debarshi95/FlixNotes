@@ -2,7 +2,7 @@ import ErrorBoundary from 'components/common/ErrorBoundary/ErrorBoundary';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './pages/App';
-import { AuthProvider, NoteProvider, SideDrawerProvider, TagProvider } from './providers';
+import { AuthProvider, NoteFilterProvider, NoteProvider, TagProvider } from './providers';
 import reportWebVitals from './reportWebVitals';
 import './styles/index.css';
 
@@ -13,9 +13,9 @@ ReactDOM.render(
         {(user) => (
           <NoteProvider user={user}>
             <TagProvider user={user}>
-              <SideDrawerProvider>
+              <NoteFilterProvider>
                 <App />
-              </SideDrawerProvider>
+              </NoteFilterProvider>
             </TagProvider>
           </NoteProvider>
         )}

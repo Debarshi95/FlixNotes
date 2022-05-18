@@ -22,7 +22,12 @@ const TagProvider = ({ children, user }) => {
           const docs = [];
           snapshot.docs.forEach((doc) => {
             const data = { ...doc.data() };
-            docs.push({ id: doc.id, label: data.tagName, ...data });
+            docs.push({
+              id: doc.id,
+              label: data.tagName,
+              value: data.tagName.toLowerCase(),
+              ...data,
+            });
           });
 
           setTags([...docs]);

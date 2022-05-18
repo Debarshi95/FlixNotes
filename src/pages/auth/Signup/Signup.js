@@ -52,7 +52,7 @@ const Signup = () => {
   };
 
   return (
-    <Wrapper hassidebar={false}>
+    <Wrapper hasNavbar={false}>
       <div className="Signup__formContainer d-flex flex-col">
         <Typography variant="h5" className="Typography--primary mt-1 mb-2" align="center" size="md">
           Signup to get started
