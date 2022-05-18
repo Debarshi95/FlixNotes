@@ -40,7 +40,10 @@
     display: block;
     text-align: center;
   }
-  .Navbar__text {
-    display: none;
+  .Navbar__button {
+    margin-left: auto;
+  }
+  .NavLink__wrapper {
+    flex-direction: column;
   }
 }

@@ -17,7 +17,7 @@ const Navbar = () => {
 
         <div className="NavLink__wrapper">
           <Searchbar />
-          <div className="d-flex content-between items-center">
+          <div className="d-flex content-between items-center Navbar__button">
             {!user ? (
               <>
                 <NavLink to="/signin" className="Typography--uppercase navlink text-bold">

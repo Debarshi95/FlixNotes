@@ -38,6 +38,7 @@
   .Searchbar__root {
     margin: 0;
     padding: 2px 12px;
+    margin: 8px 0;
   }
   .Searchbar__root > input::placeholder {
     font-size: initial;
