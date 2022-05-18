@@ -10,13 +10,14 @@
   --color-text-icon: rgba(39, 36, 36, 0.75);
   --color-dark-hover: rgba(0, 0, 0, 0.4);
   --color-blue-light: #aeccee;
+  --color-navbar: rgb(255, 251, 251);
 }
 body {
   padding: 0;
   margin: 0;
   font-family: 'Poppins', 'Courier New', Courier, monospace;
   color: var(--color-text-dark);
-  background-color: var(--color-main-bg);
+  background-color: var(--color-navbar);
 }
 
 * {

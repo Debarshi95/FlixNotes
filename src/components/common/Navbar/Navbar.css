@@ -1,10 +1,10 @@
 .Navbar__root {
   padding: 1.25rem 3rem;
-  border-bottom: 1px solid var(--color-box-shadow);
+  border-bottom: 1px solid var(--color-text-dark);
   position: sticky;
   top: 0;
   z-index: 2;
-  background-color: var(--color-main-bg);
+  background-color: var(--color-navbar);
   margin: 0 2rem;
 }
 

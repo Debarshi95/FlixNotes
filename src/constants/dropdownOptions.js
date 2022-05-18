@@ -10,7 +10,6 @@ export const priorityOptions = [
 ];
 
 export const defaultFilterOptions = [
-  { value: 'CREATED_AT', label: 'Created At' },
   { value: 'PINNED', label: 'Pinned' },
   { value: 'STATUS', label: 'Status' },
   { value: 'ALL NOTES', label: 'Clear' },
