@@ -14,10 +14,10 @@
   padding: 2px 14px;
 }
 
-.Searchbar__root > input::placeholder {
+.Searchbar__root > ::-webkit-input-placeholder {
   font-size: 1.15rem;
   font-family: inherit;
-  line-height: normal;
+  transform: translate3d(0, 2px, 0);
 }
 
 .Searchbar__button {
