@@ -1,12 +1,11 @@
 .Wrapper__root {
-  min-height: 100vh;
   width: 100%;
 }
 .Wrapper__container {
   max-width: 80%;
   margin: 0 auto;
-  display: flex;
   position: relative;
+  min-height: 100vh;
 }
 
 @media screen and (max-width: 600px) {

@@ -45,5 +45,5 @@
   font-weight: bold;
 }
 .Chip--outlined {
-  border: 1.5px solid var(--color-box-shadow);
+  border: 2px solid var(--color-box-shadow);
 }

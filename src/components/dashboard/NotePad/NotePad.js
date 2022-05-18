@@ -9,7 +9,7 @@ import { useNote, useTagContext } from 'providers';
 import { Button, TagContainer, SelectInput, Chip } from 'components';
 import { createNoteReducer } from 'reducers';
 import { noteStatus, noteActions } from 'constants/noteMessages';
-import { selectCommonStyles } from 'styles/defaultStyles';
+import { circleDropDownColors, selectCommonStyles } from 'styles/defaultStyles';
 import { toolbarModules } from 'constants/editorSettings';
 import {
   DROPDOWN_COLORS,
@@ -32,7 +32,7 @@ const initialState = {
 };
 
 const NotePad = () => {
-  const [dropdownObj, setDropdownObj] = useState({});
+  const [dropdown, setDropdown] = useState(null);
   const [{ content, cardColor, status, isPinned, tags, priority }, dispatch] = useReducer(
     createNoteReducer,
     initialState
@@ -41,18 +41,9 @@ const NotePad = () => {
   const { handleAddNote } = useNote();
   const { tags: dropdownTags = [], createTag } = useTagContext();
 
-  const handleDropdownChange = useCallback((type) => {
-    setDropdownObj((prevObj) => {
-      if (prevObj[type]) {
-        const duplicateObj = { ...prevObj };
-        delete duplicateObj[type];
-        return { ...duplicateObj };
-      }
-      const obj = {};
-      obj[type] = true;
-      return { ...obj };
-    });
-  }, []);
+  const handleDropdownChange = (type) => {
+    setDropdown(type);
+  };
 
   const handleTagFilter = useCallback(
     (value) => {
@@ -70,7 +61,7 @@ const NotePad = () => {
     }
     const res = await handleAddNote({ content, cardColor, status, isPinned, tags });
     if (res) {
-      setDropdownObj({});
+      setDropdown(null);
       dispatch({ type: noteActions.RESET, payload: initialState });
       toast.success('Note created successfully!!');
     }
@@ -90,7 +81,7 @@ const NotePad = () => {
     try {
       const res = await createTag(value);
       if (res) {
-        setDropdownObj({});
+        setDropdown(null);
         dispatch({ type: noteActions.SET_TAGS, payload: [value, ...tags] });
       }
     } catch (error) {
@@ -106,13 +97,10 @@ const NotePad = () => {
             dispatch({ type: noteActions.SET_CONTENT, payload: value });
           }}
           value={content}
-          placeholder="Enter some text..."
+          placeholder="Take a note..."
           theme="snow"
           modules={toolbarModules}
         />
-        <Chip variant="primary" className="absolute right-0 mt-1">
-          {priority}
-        </Chip>
 
         <TagContainer tags={tags} onDelete={handleTagFilter} />
 
@@ -141,15 +129,16 @@ const NotePad = () => {
               <BsPalette />
             </Button>
             <div className="popover_container">
-              {dropdownObj[DROPDOWN_COLORS] && (
+              {dropdown === DROPDOWN_COLORS && (
                 <CirclePicker
                   className="NotePad__colorPicker"
+                  colors={circleDropDownColors}
                   onChange={(color) => {
                     dispatch({
                       type: noteActions.SET_STYLE,
                       payload: color?.hex,
                     });
-                    handleDropdownChange(DROPDOWN_COLORS);
+                    handleDropdownChange(null);
                   }}
                 />
               )}
@@ -176,24 +165,24 @@ const NotePad = () => {
                 <ToolTip place="bottom" />
               </Button>
 
-              {dropdownObj[DROPDOWN_OPTIONS] && (
+              {dropdown === DROPDOWN_OPTIONS && (
                 <SelectInput
-                  onSelectClick={(value) => handleDropdownChange(value)}
+                  onSelectClick={({ value }) => handleDropdownChange(value)}
                   options={selectMoreOptions}
                   variant="primary"
                   defaultMenuIsOpen
                   placeholder={false}
                   isSearchable={false}
-                  components={{ Control: () => {} }}
+                  components={{ Control: () => null }}
                   selectStyles={selectCommonStyles}
                 />
               )}
 
-              {dropdownObj[DROPDOWN_TAGS] && (
+              {dropdown === DROPDOWN_TAGS && (
                 <SelectInput
-                  onSelectClick={(value) => {
+                  onSelectClick={({ value }) => {
                     handleSelectTag(value);
-                    handleDropdownChange(value);
+                    handleDropdownChange(null);
                   }}
                   onSelectCreate={handleCreateTag}
                   options={dropdownTags}
@@ -204,29 +193,32 @@ const NotePad = () => {
                 />
               )}
 
-              {dropdownObj[DROPDOWN_PRIORITY] && (
+              {dropdown === DROPDOWN_PRIORITY && (
                 <SelectInput
-                  onSelectClick={(value) =>
+                  onSelectClick={({ value }) =>
                     dispatch({ type: noteActions.SET_PRIORITY, payload: value })
                   }
                   options={priorityOptions}
                   variant="primary"
                   placeholder={false}
                   defaultMenuIsOpen
-                  components={{ Control: () => {} }}
+                  components={{ Control: () => null }}
                   selectStyles={selectCommonStyles}
                 />
               )}
             </div>
+            <Chip variant="outlined" className="right-0 mt-1">
+              {priority}
+            </Chip>
           </div>
 
           <Button
             component="button"
-            variant="outlined"
-            className="text-bold"
+            variant="contained"
+            className="text-bold p-0"
             onClick={handleCreateNote}
           >
-            Add
+            ADD
           </Button>
         </section>
       </div>

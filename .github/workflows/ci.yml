@@ -2,7 +2,7 @@ name: Deploy draft on PR
 
 on:
   pull_request:
-    branches: [master, develop]
+    branches: [master, develop, temp-develop]
   push:
     branches: [develop]
 

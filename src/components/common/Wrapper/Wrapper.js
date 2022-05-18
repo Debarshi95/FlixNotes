@@ -1,20 +1,16 @@
-import { Sidebar, Navbar } from 'components';
+import { Navbar } from 'components';
 import './Wrapper.css';
 
-const Wrapper = ({ children, hasnavbar, hassidebar }) => {
+const Wrapper = ({ children, hasNavbar }) => {
   return (
     <main className="Wrapper__root">
-      {hasnavbar && <Navbar />}
-      <div className="Wrapper__container">
-        {hassidebar && <Sidebar />}
-        {children}
-      </div>
+      {hasNavbar && <Navbar />}
+      <div className="Wrapper__container">{children}</div>
     </main>
   );
 };
 
 Wrapper.defaultProps = {
-  hasnavbar: true,
-  hassidebar: true,
+  hasNavbar: true,
 };
 export default Wrapper;

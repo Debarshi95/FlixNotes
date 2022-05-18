@@ -2,17 +2,18 @@
   width: 100%;
   min-height: 12rem;
   border-radius: 4px;
-  background-color: var(--color-box-shadow);
-  margin-bottom: 1rem;
   word-break: break-all;
   display: flex;
   flex-direction: column;
   position: relative;
   height: fit-content;
-  max-height: 32rem;
-  max-width: 21rem;
+  max-height: 36rem;
   overflow: hidden auto;
+  background-color: var(--color-white);
+  padding: 0.25rem;
+  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05), 0 15px 40px rgba(166, 173, 201, 0.2);
 }
+
 .NoteCard__content {
   font-size: 1rem;
   flex-grow: 1;

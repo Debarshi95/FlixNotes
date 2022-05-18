@@ -1,0 +1,13 @@
+.Dashboard__notesWrapper {
+  display: grid;
+  margin: 0;
+  grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+  gap: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .Dashboard__notesWrapper {
+    display: block;
+    gap: 0;
+  }
+}

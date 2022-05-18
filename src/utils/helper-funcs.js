@@ -1,4 +1,4 @@
-const toCapitalize = (str) => `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
+const toCapitalize = (str) => `${str.charAt(0).toUpperCase()}${str.slice(1).toLowerCase()}`;
 
 const debounce = (cb, delay) => {
   let timer;
