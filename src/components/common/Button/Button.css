@@ -13,7 +13,7 @@
 .Button--contained {
   background-color: var(--color-primary);
   color: var(--color-text-white);
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .Button--outlined {
@@ -22,10 +22,42 @@
   background-color: transparent;
 }
 
+.Button--icon {
+  font-size: 1.15rem;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  min-width: 1em;
+  margin-right: 4px;
+  color: var(--color-text-icon);
+}
+
+.Button--icon-primary {
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+.Button--icon:hover {
+  background-color: var(--color-dark-hover);
+  color: var(--color-text-white);
+}
+
+.Button--chip {
+  min-width: 2rem;
+}
+
 .Button__text--capitalize {
   text-transform: uppercase;
 }
+
 .Button--disabled {
   background-color: var(--color-primary-disabled);
   cursor: initial;
+}
+
+@media screen and (max-width: 600px) {
+  .Button--icon {
+    font-size: 1rem;
+    padding: 3px;
+  }
 }

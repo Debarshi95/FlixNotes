@@ -42,5 +42,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/no-array-index-key': 'off',
+    'react/no-danger': 'off',
   },
 };

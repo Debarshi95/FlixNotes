@@ -1,0 +1,8 @@
+.TagContainer__root {
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  padding: 4px 14px;
+}

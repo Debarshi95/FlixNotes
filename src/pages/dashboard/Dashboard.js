@@ -1,30 +1,29 @@
-import { Navbar, NotePad, Sidebar } from 'components';
-import NoteCard from 'components/dashboard/NoteCard/NoteCard';
-import { useNote } from 'providers';
-import { filterNotes } from 'reducers/noteFilterReducer';
+import { NotePad, Wrapper, NoteCard, Typography } from 'components';
+import { useNote, useNoteFilterContext } from 'providers';
 import './Dashboard.css';
 
 const Dashboard = () => {
   const { notes } = useNote();
+  const { state, getSortedNotes, getFilteredNotes } = useNoteFilterContext();
 
-  const filteredNotes = filterNotes(notes, { status: 'ACTIVE' });
+  const sortedNotes = getSortedNotes(notes, state.sortBy, state.search);
+  const filteredNotes = getFilteredNotes(sortedNotes, state);
+
   return (
-    <>
-      <Navbar />
-      <section className="Dashboard__root">
-        <div className="d-flex">
-          <Sidebar />
-          <div className="Dashboard__itemContainer">
-            <NotePad />
-            <article className="Dashboard__cardContainer">
-              {filteredNotes?.map((note) => (
-                <NoteCard key={note.id} note={note} />
-              ))}
-            </article>
-          </div>
-        </div>
+    <Wrapper>
+      <section className="flex-1 p-1">
+        <NotePad />
+        <article className="Dashboard__notesWrapper">
+          {filteredNotes?.length > 0 &&
+            filteredNotes.map((note) => <NoteCard key={note.id} note={note} />)}
+        </article>
+        {filteredNotes?.length === 0 && (
+          <Typography size="md" align="center" className="my-4">
+            No note found
+          </Typography>
+        )}
       </section>
-    </>
+    </Wrapper>
   );
 };
 

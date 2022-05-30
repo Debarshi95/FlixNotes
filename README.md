@@ -18,6 +18,11 @@ A ReactJS web app for managing notes.
   - Add/Delete labels
   - Pin/Unpin notes
   - Set notes to **ACTIVE** / **TRASH** or **ARCHIVE**
+- Filter notes by:
+  - Tags
+  - Priority
+  - Status
+- Edit note data, remove, add, update, pin note and note tags.
 - LazyLoading/Code-splitting of components to dynamically load at runtime
 - Error management using ErrorBoundary to catch and show fallback UI.
 - LazyLoading/Code-splitting of components.
@@ -56,8 +61,6 @@ A ReactJS web app for managing notes.
 ![Mobile-2](screenshot/mobile2.png)
 
 ![Mobile-3](screenshot/mobile3.png)
-
-![Mobile-4](screenshot/mobile4.png)
 
 </div>
 

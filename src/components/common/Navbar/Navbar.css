@@ -1,22 +1,49 @@
 .Navbar__root {
   padding: 1.25rem 3rem;
-  border-bottom: 1px solid var(--color-main-bg);
-  max-width: 90%;
-  margin: 0 auto;
+  border-bottom: 1px solid var(--color-text-dark);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: var(--color-navbar);
+  margin: 0 2rem;
+}
+
+.Navbar__root nav {
+  max-width: 95%;
+  display: flex;
+  justify-content: center;
 }
 .Navlink--primary {
   color: var(--color-primary);
+  font-size: 2rem;
 }
-
-.Navbar__menu {
-  color: var(--color-primary);
-  font-size: 1.35rem;
-  font-weight: bold;
-  cursor: pointer;
+.NavLink__wrapper {
+  display: flex;
+  align-items: center;
 }
-@media screen and (max-width: 600px) {
+.Navbar__text {
+  display: initial;
+}
+@media screen and (max-width: 768px) {
   .Navbar__root {
+    margin: 0;
+    padding: 1rem;
+  }
+  .Navbar__root > nav {
     max-width: 100%;
-    padding: 1.25rem;
+    margin: 0 auto;
+    display: initial;
+  }
+  .Navlink--primary {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    display: block;
+    text-align: center;
+  }
+  .Navbar__button {
+    margin-left: auto;
+  }
+  .NavLink__wrapper {
+    flex-direction: column;
   }
 }

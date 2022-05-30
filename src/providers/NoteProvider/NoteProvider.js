@@ -1,6 +1,8 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import { createNote, getDocById, getNotes, updateNote } from 'services/firebaseApi';
+import { createNote } from 'services/firebaseApi';
+
+import { firestore, collection, query, where, onSnapshot, orderBy } from 'Firebase';
 
 const NoteContext = createContext();
 
@@ -8,79 +10,44 @@ const NoteProvider = ({ children, user }) => {
   const [notes, setNotes] = useState(null);
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      const res = await getNotes(user.uid);
-      if (res?.docs) {
+    let unsub;
+    if (user) {
+      const queryRef = query(
+        collection(firestore, 'notes'),
+        where('userId', '==', user?.uid),
+        orderBy('createdAt', 'desc')
+      );
+
+      unsub = onSnapshot(queryRef, (snapshot) => {
         const docs = [];
-        res.docs.forEach((doc) => {
+        snapshot.docs.forEach((doc) => {
           docs.push({ id: doc.id, ...doc.data() });
         });
         setNotes([...docs]);
+      });
+    }
+
+    return () => {
+      if (typeof unsub === 'function') {
+        unsub();
       }
     };
-    if (user) {
-      fetchNotes();
-    }
   }, [user]);
 
   const handleAddNote = useCallback(
     async (noteData) => {
       try {
         const res = await createNote({ ...noteData, userId: user.uid });
-        if (res?.id) {
-          const newNote = await getDocById(res.id, 'notes');
-          if (newNote?.id) {
-            setNotes([{ id: newNote.id, ...newNote.data() }, ...notes]);
-            return true;
-          }
-        }
+        return res?.id;
       } catch (error) {
         toast.error("Oops!! Couldn't create note");
       }
-      return false;
+      return null;
     },
-    [notes, user?.uid]
+    [user?.uid]
   );
 
-  const handleNoteUpdate = useCallback(
-    async ({ type, noteId, payload }) => {
-      const note = notes.find((_note) => _note.id === noteId);
-
-      if (!note) return;
-
-      try {
-        if (type === 'UPDATE_PINNED') {
-          note.isPinned = !note.isPinned;
-        }
-        if (type === 'UPDATE_STATUS') {
-          note.status = payload;
-        }
-        if (type === 'UPDATE_CONTENT') {
-          note.content = payload;
-        }
-        if (type === 'UPDATE_LABELS') {
-          note.labels = [...payload];
-        }
-
-        await updateNote({ ...note });
-        const updatedNote = await getDocById(note.id, 'notes');
-        if (updatedNote?.id) {
-          const filteredNotes = notes.filter((_note) => _note.id !== noteId);
-          const data = { id: updatedNote.id, ...updatedNote.data() };
-          setNotes([data, ...filteredNotes]);
-        }
-        toast.success('Note updated successfully!');
-      } catch (error) {
-        toast.error("Error! Couldn't update note");
-      }
-    },
-    [notes]
-  );
-
-  const value = useMemo(
-    () => ({ notes, setNotes, handleAddNote, handleNoteUpdate }),
-    [notes, handleAddNote, handleNoteUpdate]
-  );
+  const value = useMemo(() => ({ notes, setNotes, handleAddNote }), [notes, handleAddNote]);
 
   return <NoteContext.Provider value={value}>{children}</NoteContext.Provider>;
 };

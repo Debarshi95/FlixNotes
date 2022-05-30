@@ -1,21 +1,21 @@
 .NotePad__root {
   width: 100%;
-  height: 100%;
-  border: 1.5px solid var(--color-box-shadow);
-  display: flex;
-  flex-direction: column;
   font-family: inherit;
   border-radius: 4px;
   position: relative;
-  height: 17rem;
-  border-radius: 2px;
+  min-height: 10rem;
+  border-radius: 4px;
+  max-width: 48vw;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  margin: 0 auto 1rem auto;
+  background-color: var(--color-white);
+  padding: 0.5rem;
 }
 
 .NotePad__inputContainer {
-  width: 100%;
-  flex: 2;
-  overflow-y: auto;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .NotePad__inputContainer > .quill .ql-toolbar.ql-snow {
@@ -23,17 +23,17 @@
   border: 0;
   border-bottom: 1.5px solid var(--color-box-shadow);
   width: 100%;
-  height: 100%;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-family: inherit;
   resize: none;
 }
 
 .ql-toolbar.ql-snow + .ql-container.ql-snow {
-  max-width: 58vw;
+  width: 100%;
   border: 0;
   font-family: inherit;
-  font-size: 1.15rem;
+  font-size: 1rem;
+  min-height: 6rem;
   font-weight: 300;
 }
 
@@ -41,41 +41,46 @@
   font-style: initial;
   font-family: inherit;
 }
-.NotePad__iconWrapper {
-  padding: 0.5rem;
-  background-color: var(--color-text-dark);
-}
+
 .NotePad__root svg {
-  cursor: pointer;
+  color: inherit;
 }
 
-.popover__container {
+.NotePad__colorPicker {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 12px;
+  z-index: 1;
+  left: -30px;
+  background: var(--color-gray);
+  border-radius: 4px;
+}
+.NotePad__colorPicker > span > div {
+  margin: 0 !important;
+  padding: 4px;
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.popover_container {
   position: relative;
-  color: var(--color-text-white);
 }
-.popover__label > input {
-  outline: none;
-  padding: 0 0.3rem;
-}
-.popover__wrapper {
-  position: absolute !important;
-  top: 130px !important;
-  left: 67% !important;
-  overflow: hidden !important;
-}
+
 .NotePad__footer {
-  padding: 0.25rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 14px;
 }
-@media screen and (max-width: 600px) {
-  .ql-toolbar.ql-snow + .ql-container.ql-snow {
+
+@media screen and (max-width: 1024px) {
+  .NotePad__root {
     max-width: 92vw;
   }
-  .NotePad__root {
-    width: 93.5%;
-    margin: 0 auto;
-    height: 15.5rem;
-  }
-  .popover__wrapper {
-    left: 38% !important;
+}
+
+@media screen and (max-width: 600px) {
+  .NotePad__footer {
+    padding: 0;
   }
 }

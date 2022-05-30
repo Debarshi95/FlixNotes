@@ -1,0 +1,15 @@
+.Wrapper__root {
+  width: 100%;
+}
+.Wrapper__container {
+  max-width: 80%;
+  margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 600px) {
+  .Wrapper__container {
+    max-width: 100%;
+  }
+}

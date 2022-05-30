@@ -39,21 +39,39 @@ export const createUser = ({ username, uid, email }) => {
   });
 };
 
-export const createNote = ({ userId, labels, isPinned, cardColor, status, content = '' }) => {
+export const createNote = ({
+  userId,
+  tags,
+  isPinned,
+  cardColor,
+  status,
+  priority = 'Low',
+  content = '',
+}) => {
   return addDoc(collection(firestore, 'notes'), {
     content,
     userId,
-    labels,
+    tags,
     cardColor,
     status,
     isPinned,
+    priority,
     createdAt: serverTimestamp(),
   });
 };
 
-export const updateNote = ({ id, userId, labels, isPinned, cardColor, status, content = '' }) => {
+export const updateNote = ({
+  id,
+  userId,
+  tags,
+  isPinned,
+  cardColor,
+  status,
+  priority,
+  content = '',
+}) => {
   const docRef = doc(firestore, 'notes', id);
-  return updateDoc(docRef, { userId, labels, isPinned, cardColor, status, content });
+  return updateDoc(docRef, { userId, tags, isPinned, cardColor, status, priority, content });
 };
 
 export const deleteNote = (id) => {
@@ -66,9 +84,9 @@ export const getNotes = (userId) => {
   return getDocs(queryRef);
 };
 
-export const createLabel = ({ label, value, userId, notes = [] }) => {
-  return addDoc(collection(firestore, 'labels'), {
-    label,
+export const createTag = ({ tagName, value, userId, notes = [] }) => {
+  return addDoc(collection(firestore, 'tags'), {
+    tagName,
     value,
     userId,
     notes,
@@ -76,9 +94,9 @@ export const createLabel = ({ label, value, userId, notes = [] }) => {
   });
 };
 
-export const getLabels = (userId) => {
+export const getTags = (userId) => {
   const queryRef = query(
-    collection(firestore, 'labels'),
+    collection(firestore, 'tags'),
     where('userId', '==', userId),
     orderBy('createdAt', 'desc')
   );
