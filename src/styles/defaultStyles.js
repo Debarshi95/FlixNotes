@@ -1,11 +1,11 @@
 const circleDropDownColors = [
-  '#D1FAE5',
+  '#FFD700',
   '#FFF',
-  '#FDF3C7',
-  '#EFF0F2',
-  '#FAF0E6',
+  '#3CB371',
+  '#87CEEB',
+  '#DEB887',
   '#FFF8DC',
-  '#98FB98',
+  '#A9A9A9',
 ];
 
 const colors = {
